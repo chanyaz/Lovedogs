@@ -44,7 +44,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     androidTestCompile "com.android.support.test:runner:$runner"
-    compile "com.android.support.test.espresso:espresso-idling-resource:$espresso"
 
     // Image libs
     compile "com.squareup.picasso:picasso:$picasso"
