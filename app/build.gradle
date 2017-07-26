@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "br.com.tairoroberto.mypet"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$support_libs"
+    implementation "com.android.support:design:$support_libs"
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout"
+    implementation "com.google.firebase:firebase-core:$firebase"
+    compile "com.android.support:support-vector-drawable:$support_libs"
+    compile "com.android.support:cardview-v7:$support_libs"
+
+    compile "com.android.support:multidex:$multidex"
+
+    // Test libs
+    testCompile "junit:junit:$junit"
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile "com.android.support.test:runner:$runner"
+    compile "com.android.support.test.espresso:espresso-idling-resource:$espresso"
+
+    // Image libs
+    compile "com.squareup.picasso:picasso:$picasso"
+    compile "de.hdodenhof:circleimageview:$circleimageview"
+
+    // Network libs
+    compile "com.google.code.gson:gson:$gson"
+    compile "com.squareup.retrofit2:retrofit:$retrofit"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
+    compile("com.squareup.retrofit2:converter-simplexml:$retrofit") {
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+    }
+    compile "com.squareup.okhttp3:okhttp-urlconnection:$okhttp_urlconnection"
+    compile "com.squareup.okhttp3:logging-interceptor:$logging_interceptor"
+    compile "com.squareup.okhttp3:okhttp:$okhttp"
+
+    // Annotations
+    kapt "org.androidannotations:androidannotations:$annotations"
+    compile "org.androidannotations:androidannotations-api:$annotations"
+    compile "org.greenrobot:eventbus:$eventbus"
+
+    // Google libs
+    compile "com.google.android.gms:play-services-maps:$firebase"
+    compile "com.google.firebase:firebase-core:$firebase"
+    compile "com.google.android.gms:play-services-location:$firebase"
+    compile "com.google.maps.android:android-maps-utils:$android_maps_utils"
+
+    // Facebook Sthetho
+    compile "com.facebook.stetho:stetho:$stetho"
+
+    // ReactiveX
+    compile "io.reactivex.rxjava2:rxandroid:$rxandroid"
+    compile "io.reactivex.rxjava2:rxjava:$rxjava"
+}
+apply plugin: 'com.google.gms.google-services'
