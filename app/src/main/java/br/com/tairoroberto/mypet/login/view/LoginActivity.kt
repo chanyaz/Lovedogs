@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
 import android.app.LoaderManager.LoaderCallbacks
 import android.content.CursorLoader
+import android.content.Intent
 import android.content.Loader
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -21,6 +22,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import br.com.tairoroberto.mypet.HomeActivity
 import br.com.tairoroberto.mypet.R
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_login.*
@@ -259,6 +261,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             showProgress(false)
 
             if (success!!) {
+                val intent:Intent = Intent(baseContext, HomeActivity::class.java)
+                startActivity(intent)
+
                 finish()
             } else {
                 password.error = getString(R.string.error_incorrect_password)

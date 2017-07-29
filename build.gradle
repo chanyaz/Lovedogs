@@ -8,7 +8,7 @@ buildscript {
     ext.espresso = '3.0.0'
     ext.junit = '4.12'
 
-    ext.firebase = '11.0.2'
+    ext.firebase = '11.0.4'
     ext.eventbus = '3.0.0'
     ext.annotations = '4.3.1'
     ext.retrofit = '2.3.0'
