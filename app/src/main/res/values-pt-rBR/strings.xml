@@ -13,7 +13,7 @@
     <string name="action_sign_in_short">Login</string>
     <string name="error_invalid_email">Este email é inválido</string>
     <string name="error_invalid_password">Esta senha é muito curta</string>
-    <string name="error_incorrect_password">Senha inválida</string>
+    <string name="error_incorrect_password">Senha ou email inválido</string>
     <string name="error_field_required">Campo requerido</string>
     <string name="permission_rationale">"Permissão de contatos é requerida para autocompletar a list ade emails"
     </string>

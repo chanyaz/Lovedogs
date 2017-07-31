@@ -1,7 +1,8 @@
-package br.com.tairoroberto.mypet
+package br.com.tairoroberto.mypet.mapa
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import br.com.tairoroberto.mypet.R
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
