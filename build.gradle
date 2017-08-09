@@ -26,6 +26,7 @@ buildscript {
     ext.runner = '0.5'
     ext.rxandroid = '2.0.1'
     ext.rxjava = '2.1.0'
+    ext.anko_version = '0.10.1'
 
     repositories {
         google()

@@ -7,7 +7,6 @@ import android.app.LoaderManager.LoaderCallbacks
 import android.content.Context
 import android.content.CursorLoader
 import android.content.Loader
-import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
@@ -23,8 +22,10 @@ import android.widget.TextView
 import br.com.tairoroberto.mypet.R
 import br.com.tairoroberto.mypet.login.contract.LoginContract
 import br.com.tairoroberto.mypet.login.presenter.LoginPresenter
+import br.com.tairoroberto.mypet.register.view.RegisterActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_login.*
+import org.jetbrains.anko.startActivity
 import java.util.*
 
 /**
@@ -69,6 +70,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, LoaderCallbacks<C
 
         email_sign_in_button.setOnClickListener { presenter.attemptLogin(email, password) }
         mFirebaseAnalytics?.logEvent("login", Bundle())
+        register.setOnClickListener { startActivity<RegisterActivity>() }
     }
 
     override fun setError(editText: EditText, string: String?) {
