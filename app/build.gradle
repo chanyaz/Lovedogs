@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "br.com.tairoroberto.mypet"
         minSdkVersion 21
@@ -28,66 +28,66 @@ dependencies {
 
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile "org.jetbrains.anko:anko-commons:$anko_version"
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
 
     //Support
+    implementation "com.android.support:support-v4:$support_libs"
     implementation "com.android.support:appcompat-v7:$support_libs"
     implementation "com.android.support:design:$support_libs"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout"
     implementation "com.google.firebase:firebase-core:$firebase"
     implementation "com.google.android.gms:play-services-maps:$firebase"
     implementation "com.google.android.gms:play-services-places:$firebase"
-    implementation 'com.android.support:appcompat-v7:26.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile "com.android.support:support-vector-drawable:$support_libs"
-    compile "com.android.support:cardview-v7:$support_libs"
-    compile "com.android.support:multidex:$multidex"
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout"
+    implementation "com.android.support:support-vector-drawable:$support_libs"
+    implementation "com.android.support:cardview-v7:$support_libs"
+    implementation "com.android.support:multidex:$multidex"
 
     // Test libs
-    testCompile "junit:junit:$junit"
+    testImplementation "junit:junit:$junit"
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso", {
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    androidTestCompile "com.android.support.test:runner:$runner"
+    androidTestImplementation "com.android.support.test:runner:$runner"
 
     // Image libs
-    compile "com.squareup.picasso:picasso:$picasso"
-    compile "de.hdodenhof:circleimageview:$circleimageview"
+    implementation "com.squareup.picasso:picasso:$picasso"
+    implementation "de.hdodenhof:circleimageview:$circleimageview"
 
     // Network libs
-    compile "com.google.code.gson:gson:$gson"
-    compile "com.squareup.retrofit2:retrofit:$retrofit"
-    compile "com.squareup.retrofit2:converter-gson:$retrofit"
-    compile "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
+    implementation "com.google.code.gson:gson:$gson"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
     compile("com.squareup.retrofit2:converter-simplexml:$retrofit") {
         exclude group: 'xpp3', module: 'xpp3'
         exclude group: 'stax', module: 'stax-api'
         exclude group: 'stax', module: 'stax'
     }
-    compile "com.squareup.okhttp3:okhttp-urlconnection:$okhttp_urlconnection"
-    compile "com.squareup.okhttp3:logging-interceptor:$logging_interceptor"
-    compile "com.squareup.okhttp3:okhttp:$okhttp"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:$okhttp_urlconnection"
+    implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
 
     // Annotations
     kapt "org.androidannotations:androidannotations:$annotations"
-    compile "org.androidannotations:androidannotations-api:$annotations"
-    compile "org.greenrobot:eventbus:$eventbus"
+    implementation "org.androidannotations:androidannotations-api:$annotations"
+    implementation "org.greenrobot:eventbus:$eventbus"
 
     // Google libs
-    compile "com.google.android.gms:play-services-maps:$firebase"
-    compile "com.google.firebase:firebase-core:$firebase"
-    compile "com.google.android.gms:play-services-location:$firebase"
-    compile "com.google.maps.android:android-maps-utils:$android_maps_utils"
+    implementation "com.google.android.gms:play-services-maps:$firebase"
+    implementation "com.google.firebase:firebase-core:$firebase"
+    implementation "com.google.android.gms:play-services-location:$firebase"
+    implementation "com.google.maps.android:android-maps-utils:$android_maps_utils"
 
     // Facebook Sthetho
-    compile "com.facebook.stetho:stetho:$stetho"
+    implementation "com.facebook.stetho:stetho:$stetho"
 
     // ReactiveX
-    compile "io.reactivex.rxjava2:rxandroid:$rxandroid"
-    compile "io.reactivex.rxjava2:rxjava:$rxjava"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava"
     wearApp project(':wear')
 }
 apply plugin: 'com.google.gms.google-services'
