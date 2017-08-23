@@ -1,5 +1,6 @@
 package br.com.tairoroberto.mypet.petshop.contract
 
+import android.view.View
 import br.com.tairoroberto.mypet.base.BaseMVP
 
 /**
