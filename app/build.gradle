@@ -62,13 +62,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
-    compile("com.squareup.retrofit2:converter-simplexml:$retrofit") {
-        exclude group: 'xpp3', module: 'xpp3'
-        exclude group: 'stax', module: 'stax-api'
-        exclude group: 'stax', module: 'stax'
-    }
     implementation "com.squareup.okhttp3:okhttp-urlconnection:$okhttp_urlconnection"
-    implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor"
     implementation "com.squareup.okhttp3:okhttp:$okhttp"
 
     // Annotations
@@ -84,10 +78,12 @@ dependencies {
 
     // Facebook Sthetho
     implementation "com.facebook.stetho:stetho:$stetho"
+    implementation "com.facebook.stetho:stetho-okhttp3:$stetho"
 
     // ReactiveX
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
     implementation "io.reactivex.rxjava2:rxjava:$rxjava"
+
     wearApp project(':wear')
 }
 apply plugin: 'com.google.gms.google-services'
