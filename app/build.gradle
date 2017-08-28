@@ -35,7 +35,6 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_libs"
     implementation "com.android.support:design:$support_libs"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout"
-    implementation "com.google.firebase:firebase-core:$firebase"
     implementation "com.google.android.gms:play-services-maps:$firebase"
     implementation "com.google.android.gms:play-services-places:$firebase"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout"
