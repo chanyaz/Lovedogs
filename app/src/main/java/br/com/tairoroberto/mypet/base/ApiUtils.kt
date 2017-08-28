@@ -11,7 +11,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
  * Created by tairo on 8/24/17.
  */
 class ApiUtils {
-    private val URL_BASE_METRO = "http://192.168.15.5:3000"
+    private val URL_BASE_METRO = "http://165.227.92.219:3000"
 
     fun getApiService(): Api? {
         return RetrofitClient.getRetrofit(URL_BASE_METRO)?.create(Api::class.java)

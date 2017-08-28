@@ -58,10 +58,10 @@ router.route("/users")
         });
     });
 
-router.route("/users/:id")
+router.route("/users/:email/:password")
     .get(function (req, res) {
         var response = {};
-        User.findById(req.params.id, function (err, data) {
+        User.find({email: req.params.id, password: req.params.password}, function (err, data) {
             // This will run Mongo Query to fetch data based on ID.
             if (err) {
                 response = {"error": true, "message": "Error fetching data"};
