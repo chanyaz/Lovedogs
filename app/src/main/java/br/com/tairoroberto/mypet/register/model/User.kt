@@ -7,7 +7,10 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by tairo on 8/27/17.
  */
-data class User(@SerializedName("name")
+data class User(@SerializedName("_id")
+                var id: String? = null,
+
+                @SerializedName("name")
                 var name: String? = null,
 
                 @SerializedName("address")
@@ -25,34 +28,33 @@ data class User(@SerializedName("name")
                 @SerializedName("updated_at")
                 var updated_at: String? = null) : Parcelable {
 
-    constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString())
+    constructor(source: Parcel) : this(
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString()
+    )
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(name)
-        parcel.writeString(address)
-        parcel.writeString(phone)
-        parcel.writeString(email)
-        parcel.writeString(password)
-        parcel.writeString(updated_at)
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeString(id)
+        writeString(name)
+        writeString(address)
+        writeString(phone)
+        writeString(email)
+        writeString(password)
+        writeString(updated_at)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<User> {
-        override fun createFromParcel(parcel: Parcel): User {
-            return User(parcel)
-        }
-
-        override fun newArray(size: Int): Array<User?> {
-            return arrayOfNulls(size)
+    companion object {
+        @JvmField
+        val CREATOR: Parcelable.Creator<User> = object : Parcelable.Creator<User> {
+            override fun createFromParcel(source: Parcel): User = User(source)
+            override fun newArray(size: Int): Array<User?> = arrayOfNulls(size)
         }
     }
 }

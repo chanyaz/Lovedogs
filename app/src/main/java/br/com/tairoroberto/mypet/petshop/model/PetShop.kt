@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by tairo on 8/22/17.
  */
-data class PetShop(@SerializedName("id")
+data class PetShop(@SerializedName("_id")
                    var id: String? = null,
 
                    @SerializedName("name")
@@ -16,68 +16,69 @@ data class PetShop(@SerializedName("id")
                    @SerializedName("address")
                    var address: String? = null,
 
+                   @SerializedName("phone")
+                   var phone: String? = null,
+
                    @SerializedName("latitude")
                    var latitude: String? = null,
 
                    @SerializedName("longitude")
                    var longitude: String? = null,
 
-                   @SerializedName("number_of_customers")
-                   var numberOfCustomers: Int? = null,
-
                    @SerializedName("favorite")
-                   var favorite: Boolean = false,
+                   var favorite: Int? = null,
 
                    @SerializedName("since")
-                   var since: String? = null,
+                   var since: Boolean = false,
 
                    @SerializedName("image_url")
                    var imageUrl: String? = null,
 
-                   @SerializedName("RedirectUrl")
-                   var redirectUrl: String? = null,
+                   @SerializedName("open")
+                   var open: String? = null,
 
-                   @SerializedName("updated_at")
-                   var updatedAt: String? = null) : Parcelable {
+                   @SerializedName("close")
+                   var close: String? = null,
 
-    constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readValue(Int::class.java.classLoader) as? Int,
-            parcel.readByte() != 0.toByte(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString())
+                   @SerializedName("stars")
+                   var stars: String? = null) : Parcelable {
+    constructor(source: Parcel) : this(
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readValue(Int::class.java.classLoader) as Int?,
+            1 == source.readInt(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString()
+    )
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(name)
-        parcel.writeString(address)
-        parcel.writeString(latitude)
-        parcel.writeString(longitude)
-        parcel.writeValue(numberOfCustomers)
-        parcel.writeByte(if (favorite) 1 else 0)
-        parcel.writeString(since)
-        parcel.writeString(imageUrl)
-        parcel.writeString(redirectUrl)
-        parcel.writeString(updatedAt)
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeString(id)
+        writeString(name)
+        writeString(address)
+        writeString(phone)
+        writeString(latitude)
+        writeString(longitude)
+        writeValue(favorite)
+        writeInt((if (since) 1 else 0))
+        writeString(imageUrl)
+        writeString(open)
+        writeString(close)
+        writeString(stars)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<PetShop> {
-        override fun createFromParcel(parcel: Parcel): PetShop {
-            return PetShop(parcel)
-        }
-
-        override fun newArray(size: Int): Array<PetShop?> {
-            return arrayOfNulls(size)
+    companion object {
+        @JvmField
+        val CREATOR: Parcelable.Creator<PetShop> = object : Parcelable.Creator<PetShop> {
+            override fun createFromParcel(source: Parcel): PetShop = PetShop(source)
+            override fun newArray(size: Int): Array<PetShop?> = arrayOfNulls(size)
         }
     }
 }

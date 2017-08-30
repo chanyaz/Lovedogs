@@ -4,7 +4,6 @@ var mongoose = require("mongoose");
 var mongoSchema = mongoose.Schema;
 
 var ServiceSchema = new mongoose.Schema({
-    id: String,
     id_petshop: String,
     name: String,
     image_service: String,

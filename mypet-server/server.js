@@ -25,21 +25,24 @@ router.get("/", function (req, res) {
     res.json({"error": false, "message": "Hello World"});
 });
 
-// Rotas que irão terminar em '/usuarios' - (servem tanto para: GET All &amp; POST)
+// ROTAS QUE SERÃO USADAS PELO APP DE PETSHOPS
 
+// @GET http://165.227.92.219:3000/users
 router.route("/users")
     .get(function (req, res) {
         var response = {};
         User.find({}, function (err, data) {
             // Mongo command to fetch all data from collection.
             if (err) {
-                response = {"error": true, "message": "Error fetching data"};
+                res.send(error);
             } else {
-                response = {"error": false, "message": data};
+                response = data;
             }
             res.json(response);
         });
     })
+
+    // @POST http://165.227.92.219:3000/users
     .post(function (req, res) {
         var user = new User();
 
@@ -54,19 +57,19 @@ router.route("/users")
             if (error)
                 res.send(error);
 
-            res.json({message: 'Usuário criado!'});
+            res.json({"success": true, "message": "Usuário criado!"});
         });
     });
 
-router.route("/users/:email/:password")
+router.route("/users/:id")
     .get(function (req, res) {
         var response = {};
-        User.find({email: req.params.id, password: req.params.password}, function (err, data) {
+        User.findById(req.params.id, function (err, data) {
             // This will run Mongo Query to fetch data based on ID.
             if (err) {
-                response = {"error": true, "message": "Error fetching data"};
+                res.send(error);
             } else {
-                response = {"error": false, "message": data};
+                response = data;
             }
             res.json(response);
         });
@@ -77,7 +80,7 @@ router.route("/users/:email/:password")
         // if it does then update the record
         User.findById(req.params.id, function (err, data) {
             if (err) {
-                response = {"error": true, "message": "Error fetching data"};
+                response = {"success": false, "message": "Error fetching data"};
             } else {
                 // we got data from Mongo.
                 // change it accordingly.
@@ -104,9 +107,9 @@ router.route("/users/:email/:password")
                 // save the data
                 data.save(function (err) {
                     if (err) {
-                        response = {"error": true, "message": "Error updating data"};
+                        response = {"success": false, "message": "Error updating data"};
                     } else {
-                        response = {"error": false, "message": "Data is updated for " + req.params.id};
+                        response = {"success": true, "message": "Data is updated for " + req.params.id};
                     }
                     res.json(response);
                 })
@@ -123,9 +126,9 @@ router.route("/users/:email/:password")
                 // data exists, remove it.
                 User.remove({_id: req.params.id}, function (err) {
                     if (err) {
-                        response = {"error": true, "message": "Error deleting data"};
+                        response = {"success": false, "message": "Error deleting data"};
                     } else {
-                        response = {"error": true, "message": "Data associated with " + req.params.id + "is deleted"};
+                        response = {"success": true, "message": "Data associated with " + req.params.id + "is deleted"};
                     }
                     res.json(response);
                 });
@@ -134,15 +137,30 @@ router.route("/users/:email/:password")
     });
 
 
+router.route("/login/:email/:password")
+.get(function (req, res) {
+    var response = {};
+    User.find({email: req.params.email, password: req.params.password}, function (err, data) {
+        // This will run Mongo Query to fetch data based on ID.
+        if (err) {
+            res.send(error);
+        } else {
+            response = data;
+        }
+        res.json(response);
+    });
+});
+
+
 router.route("/petshops")
     .get(function (req, res) {
         var response = {};
         Petshop.find(function (err, data) {
             // Mongo command to fetch all data from collection.
             if (err) {
-                response = {"error": true, "message": "Error fetching data"};
+                res.send(error);
             } else {
-                response = {"error": false, "message": data};
+                response = data;
             }
             res.json(response);
         });
@@ -153,12 +171,15 @@ router.route("/petshops")
         //aqui setamos os campos do usuario (que virá do request)
         petshop.name                = req.body.name;
         petshop.address             = req.body.address;
+        petshop.phone               = req.body.phone;
         petshop.latitude            = req.body.latitude;
         petshop.longitude           = req.body.longitude;
-        petshop.number_of_customers = req.body.number_of_customers;
         petshop.favorite            = req.body.favorite;
         petshop.since               = req.body.since;
         petshop.image_url           = req.body.image_url;
+        petshop.open                = req.body.open;
+        petshop.close               = req.body.close;
+        petshop.stars               = req.body.stars;
 
         petshop.save(function (error) {
             if (error)
@@ -174,23 +195,42 @@ router.route("/petshops")
         Petshop.findById(req.params.id, function (err, data) {
             // This will run Mongo Query to fetch data based on ID.
             if (err) {
-                response = {"error": true, "message": "Error fetching data"};
+               res.send(error);
             } else {
-                response = {"error": false, "message": data};
+                response = data;
             }
             res.json(response);
         });
-    });
+    })
+    .delete(function (req, res) {
+            var response = {};
+            // find the data
+            Petshop.findById(req.params.id, function (err, data) {
+                if (err) {
+                    response = {"success": false, "message": "Error fetching data"};
+                } else {
+                    // data exists, remove it.
+                    Petshop.remove({_id: req.params.id}, function (err) {
+                        if (err) {
+                            response = {"success": false, "message": "Error deleting data"};
+                        } else {
+                            response = {"success": true, "message": "Data associated with " + req.params.id + "is deleted"};
+                        }
+                        res.json(response);
+                    });
+                }
+            })
+        });
 
-router.route("/services")
+router.route("/services/petshop")
     .get(function (req, res) {
         var response = {};
         Service.find({}, function (err, data) {
             // Mongo command to fetch all data from collection.
             if (err) {
-                response = {"error": true, "message": "Error fetching data"};
+                res.send(error);
             } else {
-                response = {"error": false, "message": data};
+                response = data;
             }
             res.json(response);
         });
@@ -211,19 +251,52 @@ router.route("/services")
         });
     });
 
-router.route("/services/:id_petshop")
+router.route("/services/petshop/:id_petshop")
     .get(function (req, res) {
         var response = {};
         Service.find({id_petshop : req.params.id_petshop}, function (err, data) {
             // This will run Mongo Query to fetch data based on ID.
             if (err) {
-                response = {"error": true, "message": "Error fetching data"};
+                res.send(error);
             } else {
-                response = {"error": false, "message": data};
+                response = data;
+            }
+            res.json(response);
+        });
+    });
+
+router.route("/services/:id")
+ .get(function (req, res) {
+        var response = {};
+        Service.findById(req.params.id, function (err, data) {
+            // This will run Mongo Query to fetch data based on ID.
+            if (err) {
+               res.send(error);
+            } else {
+                response = data;
             }
             res.json(response);
         });
     })
+    .delete(function (req, res) {
+            var response = {};
+            // find the data
+            Service.findById(req.params.id, function (err, data) {
+                if (err) {
+                    response = {"success": false, "message": "Error fetching data"};
+                } else {
+                    // data exists, remove it.
+                    Service.remove({_id: req.params.id}, function (err) {
+                        if (err) {
+                            response = {"success": false, "message": "Error deleting data"};
+                        } else {
+                            response = {"success": true, "message": "Data associated with " + req.params.id + "is deleted"};
+                        }
+                        res.json(response);
+                    });
+                }
+            })
+        });
 
 
 app.use('/', router);
