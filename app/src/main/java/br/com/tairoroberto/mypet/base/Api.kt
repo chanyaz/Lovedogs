@@ -12,7 +12,7 @@ import retrofit2.http.Path
  */
 interface Api {
 
-    @GET("/users/{email}/{password}")
+    @GET("/login/{email}/{password}")
     fun login(@Path("email") email: String, @Path("password") password: String): Observable<LoginResponse>
 
     @GET("/petshops")

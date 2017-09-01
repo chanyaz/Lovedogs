@@ -42,9 +42,9 @@ class PetshopsRecyclerAdapter(val context: Context,
         private val textViewSubtitle: TextView = view.findViewById(R.id.textViewSubtitle)
 
         fun bind(context: Context?, petShop: PetShop) {
-            Picasso.with(context).load(petShop.image).into(imageView)
-            textViewTitle.text = petShop.title
-            textViewSubtitle.text = petShop.subTitle
+            Picasso.with(context).load(petShop.imageUrl).into(imageView)
+            textViewTitle.text = petShop.name
+            textViewSubtitle.text = petShop.address
         }
     }
 

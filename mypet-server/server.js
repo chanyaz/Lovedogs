@@ -35,9 +35,14 @@ router.route("/users")
             // Mongo command to fetch all data from collection.
             if (err) {
                 res.send(error);
-            } else {
-                response = data;
             }
+
+            if (data.length == 0) {
+                response = {"success": false};
+            } else {
+                response = {"success": true, "users": data};
+            }
+
             res.json(response);
         });
     })
@@ -68,9 +73,14 @@ router.route("/users/:id")
             // This will run Mongo Query to fetch data based on ID.
             if (err) {
                 res.send(error);
-            } else {
-                response = data;
             }
+
+            if (data.length == 0) {
+                response = {"success": false};
+            } else {
+                response = {"success": true, "user": data[0]};
+            }
+
             res.json(response);
         });
     })
@@ -109,7 +119,7 @@ router.route("/users/:id")
                     if (err) {
                         response = {"success": false, "message": "Error updating data"};
                     } else {
-                        response = {"success": true, "message": "Data is updated for " + req.params.id};
+                        response = {"success": true, "message": "Data is updated for " + req.params.id, "user": data[0]};
                     }
                     res.json(response);
                 })
@@ -128,7 +138,7 @@ router.route("/users/:id")
                     if (err) {
                         response = {"success": false, "message": "Error deleting data"};
                     } else {
-                        response = {"success": true, "message": "Data associated with " + req.params.id + "is deleted"};
+                        response = {"success": true, "deleted": true, "message": "Data associated with " + req.params.id + "is deleted"};
                     }
                     res.json(response);
                 });
@@ -144,9 +154,14 @@ router.route("/login/:email/:password")
         // This will run Mongo Query to fetch data based on ID.
         if (err) {
             res.send(error);
-        } else {
-            response = data;
         }
+
+        if (data.length == 0) {
+            response = {"success": false};
+        } else {
+            response = {"success": true, "user": data[0]};
+        }
+
         res.json(response);
     });
 });
@@ -159,9 +174,14 @@ router.route("/petshops")
             // Mongo command to fetch all data from collection.
             if (err) {
                 res.send(error);
-            } else {
-                response = data;
             }
+
+            if (data.length == 0) {
+                response = {"success": false};
+            } else {
+               response = {"success": true, "petshops": data};
+            }
+
             res.json(response);
         });
     })
@@ -185,7 +205,7 @@ router.route("/petshops")
             if (error)
                 res.send(error);
 
-            res.json({message: 'Petshop criado!'});
+            res.json({"message": "Petshop criado!"});
         });
     });
 
@@ -196,9 +216,14 @@ router.route("/petshops")
             // This will run Mongo Query to fetch data based on ID.
             if (err) {
                res.send(error);
-            } else {
-                response = data;
             }
+
+            if (data.length == 0) {
+                response = {"success": false};
+            } else {
+                response = {"success": true, "petshop": data[0]};
+            }
+
             res.json(response);
         });
     })
@@ -229,9 +254,14 @@ router.route("/services/petshop")
             // Mongo command to fetch all data from collection.
             if (err) {
                 res.send(error);
-            } else {
-                response = data;
             }
+
+            if (data.length == 0) {
+                response = {"success": false};
+            } else  {
+                response = {"success": true, "services": data};
+            }
+
             res.json(response);
         });
     })
@@ -258,9 +288,14 @@ router.route("/services/petshop/:id_petshop")
             // This will run Mongo Query to fetch data based on ID.
             if (err) {
                 res.send(error);
-            } else {
-                response = data;
             }
+
+            if (data.length == 0) {
+                response = {"success": false};
+            } else {
+                response = {"success": true, "services": data};
+            }
+
             res.json(response);
         });
     });
@@ -272,9 +307,14 @@ router.route("/services/:id")
             // This will run Mongo Query to fetch data based on ID.
             if (err) {
                res.send(error);
-            } else {
-                response = data;
             }
+
+            if (data.length == 0) {
+                response = {"success": false};
+            } else {
+                response = {"success": true, "service": data[0]};
+            }
+
             res.json(response);
         });
     })

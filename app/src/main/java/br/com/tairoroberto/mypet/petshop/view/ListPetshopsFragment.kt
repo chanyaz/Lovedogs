@@ -68,7 +68,7 @@ class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
     }
 
     override fun onItemClick(petShop: PetShop) {
-        Toast.makeText(activity, "home petShop: ${petShop.title}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, "home petShop: ${petShop.name}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
