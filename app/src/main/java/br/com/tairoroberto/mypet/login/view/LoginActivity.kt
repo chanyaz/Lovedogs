@@ -17,18 +17,16 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import br.com.tairoroberto.mypet.R
+import br.com.tairoroberto.mypet.home.HomeActivity
 import br.com.tairoroberto.mypet.login.contract.LoginContract
 import br.com.tairoroberto.mypet.login.presenter.LoginPresenter
-import br.com.tairoroberto.mypet.register.model.User
 import br.com.tairoroberto.mypet.register.view.RegisterActivity
 import com.facebook.*
-import com.facebook.appevents.AppEventsLogger
 import com.facebook.login.LoginResult
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
-import com.facebook.login.LoginManager
-import org.json.JSONObject
 
 
 /**
@@ -69,21 +67,24 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, FacebookCallback<
 
         login_button.setReadPermissions("email")
         login_button.registerCallback(callbackManager, this)
+
+        if (AccessToken.getCurrentAccessToken() != null) {
+            startActivity<HomeActivity>()
+        }
+    }
+
+    override fun setUseFromFacebook(emailStr: String, name: String?, picture: String) {
+        email.setText(emailStr)
+        Picasso.with(this).load(picture).into(user_profile_photo)
+        startActivity<HomeActivity>()
     }
 
     override fun onSuccess(result: LoginResult?) {
         Log.i("LOG", "result ${result.toString()}")
         val parameters = Bundle()
         parameters.putString("fields", "name,last_name,email,picture")
-        val request = GraphRequest.newMeRequest(result?.accessToken) { jObj, graphResponse ->
-            if (jObj != null) {
-//                callbackManager?.onUserLogged(User(
-  //                      jObj["email"] as String,
-    //                    jObj["name"] as String,
-      //                  ((jObj["picture"] as JSONObject)["data"] as JSONObject)["url"] as String))
-
-                Log.i("LOG", "jObj $jObj")
-            }
+        val request = GraphRequest.newMeRequest(result?.accessToken) { userJson, graphResponse ->
+            presenter.setUserFromFacebook(userJson)
         }
         request.parameters = parameters
         request.executeAsync()

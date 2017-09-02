@@ -1,7 +1,5 @@
 package br.com.tairoroberto.mypet.login.presenter
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.AppCompatAutoCompleteTextView
 import android.text.TextUtils
@@ -14,6 +12,7 @@ import br.com.tairoroberto.mypet.home.HomeActivity
 import br.com.tairoroberto.mypet.login.contract.LoginContract
 import br.com.tairoroberto.mypet.login.model.LoginModel
 import br.com.tairoroberto.mypet.login.model.LoginResponse
+import org.json.JSONObject
 
 /**
  * Created by tairo on 7/30/17.
@@ -71,7 +70,7 @@ class LoginPresenter : LoginContract.Presenter {
             model?.getLogin(emailStr, passwordStr)
         }
 
-        if( checkBox.isChecked ) {
+        if (checkBox.isChecked) {
             model?.saveUserLogin(emailStr, passwordStr, view?.getActivity())
         }
     }
@@ -97,5 +96,12 @@ class LoginPresenter : LoginContract.Presenter {
 
     override fun showProgress(show: Boolean) {
         view?.showProgress(show)
+    }
+
+    override fun setUserFromFacebook(userJson: JSONObject?) {
+        if (userJson != null) {
+            view?.setUseFromFacebook(userJson["email"].toString(), userJson["name"].toString(), ((userJson["picture"] as JSONObject)["data"] as JSONObject)["url"] as String)
+            Log.i("LOG", "User $userJson")
+        }
     }
 }
