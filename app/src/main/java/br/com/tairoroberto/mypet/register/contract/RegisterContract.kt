@@ -9,9 +9,11 @@ import br.com.tairoroberto.mypet.base.BaseMVP
 class RegisterContract {
     interface View : BaseMVP.View {
         fun showProgress(show: Boolean)
+
+        fun showErrorRegister(str: String)
     }
 
     interface Presenter : BaseMVP.Presenter<View> {
-
+        fun sendRegister(name: String, address: String, phone: String, email: String, password: String)
     }
 }

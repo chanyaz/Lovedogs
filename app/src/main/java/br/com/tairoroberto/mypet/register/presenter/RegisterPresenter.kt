@@ -17,4 +17,7 @@ class RegisterPresenter : RegisterContract.Presenter {
         this.view = null
     }
 
+    override fun sendRegister(name: String, address: String, phone: String, email: String, password: String) {
+        
+    }
 }
