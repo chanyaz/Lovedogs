@@ -61,7 +61,8 @@
                     android:textColorHint="#ADFFF1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+                    app:passwordToggleEnabled="true">
 
                     <EditText
                         android:id="@+id/password"
@@ -75,7 +76,6 @@
                 </android.support.design.widget.TextInputLayout>
 
 
-
                 <CheckBox
                     android:id="@+id/checkBox"
                     android:layout_width="wrap_content"
@@ -85,8 +85,8 @@
                     android:layout_marginTop="8dp"
                     android:checked="true"
                     android:text="Remember"
-                    android:textSize="18sp"
                     android:textColor="#F2FEFF"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +97,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="22dp"
-                    android:layout_marginBottom="@dimen/dimen_16dp"
                     android:layout_marginEnd="@dimen/dimen_16dp"
                     android:layout_marginStart="@dimen/dimen_16dp"
                     android:layout_marginTop="8dp"
@@ -106,27 +105,41 @@
                     android:textAllCaps="false"
                     android:textColor="#E6F9FA"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+
 
                 <TextView
                     android:id="@+id/register"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
-                    android:layout_marginBottom="0dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="8dp"
                     android:gravity="center_vertical|center"
                     android:text="Register"
                     android:textColor="#E6F9FA"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/login_button" />
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/login_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/email_sign_in_button" />
+
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 

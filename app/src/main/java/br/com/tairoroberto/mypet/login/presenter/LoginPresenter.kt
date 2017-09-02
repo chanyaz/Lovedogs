@@ -1,10 +1,13 @@
 package br.com.tairoroberto.mypet.login.presenter
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.AppCompatAutoCompleteTextView
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.CheckBox
 import android.widget.EditText
 import br.com.tairoroberto.mypet.R
 import br.com.tairoroberto.mypet.home.HomeActivity
@@ -18,7 +21,7 @@ import br.com.tairoroberto.mypet.login.model.LoginResponse
 class LoginPresenter : LoginContract.Presenter {
 
     private var view: LoginContract.View? = null
-    private var model: LoginModel? = null
+    private var model: LoginContract.Model? = null
 
     override fun attachView(view: LoginContract.View) {
         this.view = view
@@ -29,7 +32,7 @@ class LoginPresenter : LoginContract.Presenter {
         this.view = null
     }
 
-    override fun attemptLogin(email: AppCompatAutoCompleteTextView, password: EditText) {
+    override fun attemptLogin(email: AppCompatAutoCompleteTextView, password: EditText, checkBox: CheckBox) {
 
         // Reset errors.
         email.error = null
@@ -67,6 +70,10 @@ class LoginPresenter : LoginContract.Presenter {
             view?.showProgress(true)
             model?.getLogin(emailStr, passwordStr)
         }
+
+        if( checkBox.isChecked ) {
+            model?.saveUserLogin(emailStr, passwordStr, view?.getActivity())
+        }
     }
 
     override fun manipulateloginResponse(loginResponse: LoginResponse) {
@@ -76,7 +83,19 @@ class LoginPresenter : LoginContract.Presenter {
         if (loginResponse.success) {
             view?.getContext()?.startActivity(Intent(view?.getContext(), HomeActivity::class.java))
         } else {
-            view?.showSnackBarError("Dados incorretos")
+            view?.showSnackBarError("Usuário não cadatrado ou senha inválida :(")
         }
+    }
+
+    override fun getStringPreference(key: String): String? {
+        return model?.getStringPreference(view?.getActivity(), key)
+    }
+
+    override fun showSnackBarError(s: String) {
+        view?.showSnackBarError(s)
+    }
+
+    override fun showProgress(show: Boolean) {
+        view?.showProgress(show)
     }
 }

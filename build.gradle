@@ -27,6 +27,7 @@ buildscript {
     ext.rxandroid = '2.0.1'
     ext.rxjava = '2.1.0'
     ext.anko_version = '0.10.1'
+    ext.facebook = '4.22.1'
 
     repositories {
         google()
@@ -34,7 +35,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta3'
+        classpath 'com.android.tools.build:gradle:3.0.0-beta4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:3.1.0'
     }
