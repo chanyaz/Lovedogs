@@ -81,6 +81,8 @@ class LoginPresenter : LoginContract.Presenter {
         view?.showProgress(false)
         if (loginResponse.success) {
             view?.getContext()?.startActivity(Intent(view?.getContext(), HomeActivity::class.java))
+            view?.finishActivity()
+            
         } else {
             view?.showSnackBarError("Usuário não cadatrado ou senha inválida :(")
         }

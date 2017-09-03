@@ -1,22 +1,20 @@
 package br.com.tairoroberto.mypet.login.view
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import br.com.tairoroberto.mypet.R
+import br.com.tairoroberto.mypet.base.extension.hideKeyboard
+import br.com.tairoroberto.mypet.base.extension.showProgress
+import br.com.tairoroberto.mypet.base.extension.showSnackBarError
 import br.com.tairoroberto.mypet.home.HomeActivity
 import br.com.tairoroberto.mypet.login.contract.LoginContract
 import br.com.tairoroberto.mypet.login.presenter.LoginPresenter
@@ -55,7 +53,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, FacebookCallback<
             false
         })
 
-        email_sign_in_button.setOnClickListener { presenter.attemptLogin(email, password, checkBox) }
+        email_sign_in_button.setOnClickListener {
+            this.hideKeyboard()
+            presenter.attemptLogin(email, password, checkBox)
+        }
+
         mFirebaseAnalytics?.logEvent("login", Bundle())
         register.setOnClickListener { startActivity<RegisterActivity>() }
 
@@ -70,6 +72,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, FacebookCallback<
 
         if (AccessToken.getCurrentAccessToken() != null) {
             startActivity<HomeActivity>()
+            finishActivity()
         }
     }
 
@@ -121,43 +124,18 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, FacebookCallback<
     }
 
     override fun showSnackBar(msg: String) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return
-        }
         Snackbar.make(email, msg, Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, null)
     }
 
     override fun showSnackBarError(msg: String) {
-        val snackbar: Snackbar = Snackbar.make(email, msg, Snackbar.LENGTH_LONG)
-                .setAction("OK", null)
-        snackbar.view.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
-        snackbar.show()
+        this.showSnackBarError(email, msg)
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
     override fun showProgress(show: Boolean) {
-        val shortAnimTime = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+        this.showProgress(login_form, login_progress, show)
+    }
 
-        login_form.visibility = if (show) View.GONE else View.VISIBLE
-        login_form.animate()
-                .setDuration(shortAnimTime)
-                .alpha((if (show) 0 else 1).toFloat())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        login_form.visibility = if (show) View.GONE else View.VISIBLE
-                    }
-                })
-
-        login_progress.visibility = if (show) View.VISIBLE else View.GONE
-        login_progress.animate()
-                .setDuration(shortAnimTime)
-                .alpha((if (show) 1 else 0).toFloat())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        login_progress.visibility = if (show) View.VISIBLE else View.GONE
-                    }
-                })
+    override fun finishActivity() {
+        finish()
     }
 }

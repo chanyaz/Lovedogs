@@ -20,6 +20,7 @@ class LoginContract {
         fun showSnackBarError(msg: String)
         fun getActivity(): Activity?
         fun  setUseFromFacebook(emailStr: String, name: String?, picture: String)
+        fun finishActivity()
     }
 
     interface Presenter : BaseMVP.Presenter<View> {

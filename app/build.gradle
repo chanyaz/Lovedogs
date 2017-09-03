@@ -43,6 +43,7 @@ dependencies {
     implementation "com.android.support:multidex:$multidex"
 
     // Test libs
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation "junit:junit:$junit"
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso", {
         exclude group: 'com.android.support', module: 'support-annotations'

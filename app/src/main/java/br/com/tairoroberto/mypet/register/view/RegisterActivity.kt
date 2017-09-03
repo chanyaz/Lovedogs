@@ -1,14 +1,19 @@
 package br.com.tairoroberto.mypet.register.view
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.inputmethod.InputMethodManager
 import br.com.tairoroberto.mypet.R
+import br.com.tairoroberto.mypet.base.extension.showProgress
 import br.com.tairoroberto.mypet.register.contract.RegisterContract
 import br.com.tairoroberto.mypet.register.presenter.RegisterPresenter
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.content_register.*
-import org.androidannotations.annotations.Click
+
 
 class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
@@ -17,9 +22,21 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        setSupportActionBar(toolbar)
-        toolbar_text.text = getString(R.string.register_activity)
         presenter.attachView(this)
+
+        register_button.setOnClickListener({
+            showProgress(true)
+
+            val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+
+            presenter.sendRegister(
+                    editName.text.toString(),
+                    editAddress.text.toString(),
+                    editPhone.text.toString(),
+                    editEmail.text.toString(),
+                    editPassword.text.toString())
+        })
     }
 
     override fun getContext(): Context {
@@ -31,21 +48,23 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         presenter.detachView()
     }
 
-    override fun showProgress(show: Boolean) {
-
-    }
-
-    @Click(R.id.register_button)
-    fun registerClick() {
-        presenter.sendRegister(
-                editName.text.toString(),
-                editAddress.text.toString(),
-                editPhone.text.toString(),
-                editEmail.text.toString(),
-                editPassword.text.toString())
-    }
-
     override fun showErrorRegister(str: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showProgress(false)
+        showSnackBarError(str)
+    }
+
+    override fun showSnackBarError(msg: String) {
+        val snackbar: Snackbar = Snackbar.make(email, msg, Snackbar.LENGTH_LONG)
+                .setAction("OK", null)
+        snackbar.view.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
+        snackbar.show()
+    }
+
+    override fun showProgress(show: Boolean) {
+        this.showProgress(register_form, progress, show)
+    }
+
+    override fun finishActivity() {
+        finish()
     }
 }
