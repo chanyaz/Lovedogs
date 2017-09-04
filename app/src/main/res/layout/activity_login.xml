@@ -96,7 +96,6 @@
                     android:id="@+id/email_sign_in_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="22dp"
                     android:layout_marginEnd="@dimen/dimen_16dp"
                     android:layout_marginStart="@dimen/dimen_16dp"
                     android:layout_marginTop="8dp"
@@ -152,6 +151,7 @@
             android:layout_alignTop="@+id/login_progress"
             android:layout_centerHorizontal="true"
             android:elevation="4dp"
+            android:transitionName="profile_photo"
             android:src="@drawable/animais"
             app:civ_border_color="#175258"
             app:civ_border_width="4dp" />

@@ -5,7 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
 import android.support.v7.app.AppCompatActivity
+import android.transition.ChangeBounds
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -24,6 +27,7 @@ import com.facebook.login.LoginResult
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_splash.*
 import org.jetbrains.anko.startActivity
 
 
@@ -37,6 +41,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, FacebookCallback<
     private var callbackManager: CallbackManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        window.sharedElementExitTransition = ChangeBounds()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
