@@ -9,8 +9,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageSplash"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
@@ -38,7 +38,7 @@
         app:layout_constraintHorizontal_bias="0.23"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:srcCompat="@drawable/footprint" />
+        app:srcCompat="@drawable/ic_paw_print" />
 
     <ImageView
         android:id="@+id/img9"
@@ -52,7 +52,7 @@
         app:layout_constraintHorizontal_bias="0.64"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:srcCompat="@drawable/footprint" />
+        app:srcCompat="@drawable/ic_paw_print" />
 
     <ImageView
         android:id="@+id/img8"
@@ -66,7 +66,7 @@
         app:layout_constraintHorizontal_bias="0.42"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline10"
-        app:srcCompat="@drawable/footprint" />
+        app:srcCompat="@drawable/ic_paw_print" />
 
     <ImageView
         android:id="@+id/img7"
@@ -80,7 +80,7 @@
         app:layout_constraintHorizontal_bias="0.62"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline9"
-        app:srcCompat="@drawable/footprint" />
+        app:srcCompat="@drawable/ic_paw_print" />
 
     <ImageView
         android:id="@+id/img6"
@@ -94,7 +94,7 @@
         app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline8"
-        app:srcCompat="@drawable/footprint" />
+        app:srcCompat="@drawable/ic_paw_print" />
 
     <ImageView
         android:id="@+id/img5"
@@ -108,7 +108,7 @@
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        app:srcCompat="@drawable/footprint" />
+        app:srcCompat="@drawable/ic_paw_print" />
 
     <ImageView
         android:id="@+id/img4"
@@ -122,7 +122,7 @@
         app:layout_constraintHorizontal_bias="0.197"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline6"
-        app:srcCompat="@drawable/footprint" />
+        app:srcCompat="@drawable/ic_paw_print" />
 
     <ImageView
         android:id="@+id/img3"
@@ -136,7 +136,7 @@
         app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:srcCompat="@drawable/footprint" />
+        app:srcCompat="@drawable/ic_paw_print" />
 
     <ImageView
         android:id="@+id/img2"
@@ -150,7 +150,7 @@
         app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4"
-        app:srcCompat="@drawable/footprint" />
+        app:srcCompat="@drawable/ic_paw_print" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
@@ -218,8 +218,8 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
-        android:layout_width="205dp"
-        android:layout_height="205dp"
+        android:layout_width="255dp"
+        android:layout_height="255dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -230,24 +230,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="MY PET"
-        android:textColor="@color/colorAccent"
-        android:textColorLink="@color/colorAccent"
-        android:textSize="36sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

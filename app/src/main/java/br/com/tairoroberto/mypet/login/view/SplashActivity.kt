@@ -15,13 +15,14 @@ import br.com.tairoroberto.mypet.R
 import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.*
 
-
 class SplashActivity : AppCompatActivity() {
 
     val animation = AnimationSet(true)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.sharedElementExitTransition = ChangeBounds()
+        val changeBounds = ChangeBounds()
+        changeBounds.duration = 2000
+        window.sharedElementExitTransition = changeBounds
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -105,7 +106,7 @@ class SplashActivity : AppCompatActivity() {
                 img9.visibility = View.GONE
                 progressBar.visibility = View.VISIBLE
                 imageSplash.visibility = View.VISIBLE
-                textView.visibility = View.VISIBLE
+                //textView.visibility = View.VISIBLE
                 imageSplash.startAnimation(animation)
 
                 Timer().schedule(object : TimerTask() {

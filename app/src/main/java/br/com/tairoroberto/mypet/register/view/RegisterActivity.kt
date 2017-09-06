@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.transition.ChangeBounds
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import br.com.tairoroberto.mypet.R
 import br.com.tairoroberto.mypet.base.extension.showProgress
 import br.com.tairoroberto.mypet.register.contract.RegisterContract
@@ -57,7 +58,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     override fun showSnackBarError(msg: String) {
-        val snackbar: Snackbar = Snackbar.make(email, msg, Snackbar.LENGTH_LONG)
+        val snackbar: Snackbar = Snackbar.make(editEmail, msg, Snackbar.LENGTH_LONG)
                 .setAction("OK", null)
         snackbar.view.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
         snackbar.show()
@@ -69,5 +70,11 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
     override fun finishActivity() {
         finish()
+    }
+
+    override fun setErrorRegister(idView: Int, msg: String) {
+        val  editText = findViewById<EditText>(idView)
+        editText.error = msg
+        editText.requestFocus()
     }
 }
