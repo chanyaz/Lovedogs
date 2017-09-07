@@ -20,7 +20,7 @@ data class PetShop(@SerializedName("_id")
                    var phone: String? = null,
 
                    @SerializedName("latitude")
-                   var latitude: Double? = 0.0,
+                   var latitude: Double = 0.0,
 
                    @SerializedName("longitude")
                    var longitude: Double = 0.0,
@@ -48,7 +48,7 @@ data class PetShop(@SerializedName("_id")
             source.readString(),
             source.readString(),
             source.readString(),
-            source.readValue(Double::class.java.classLoader) as Double?,
+            source.readValue(Double::class.java.classLoader) as Double,
             source.readDouble(),
             1 == source.readInt(),
             source.readString(),

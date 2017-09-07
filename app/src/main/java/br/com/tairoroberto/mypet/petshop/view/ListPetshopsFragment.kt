@@ -3,7 +3,9 @@ package br.com.tairoroberto.mypet.petshop.view
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.Toast
 import br.com.tairoroberto.mypet.R
@@ -15,9 +17,7 @@ import com.facebook.AccessToken
 import com.facebook.GraphRequest
 import com.facebook.HttpMethod
 import com.facebook.login.LoginManager
-import kotlinx.android.synthetic.main.fragment_list_petshops.*
 import org.jetbrains.anko.startActivity
-
 
 /**
  * A simple [Fragment] subclass.
@@ -25,6 +25,10 @@ import org.jetbrains.anko.startActivity
 class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
 
     private val presenter: PetshopContract.Presenter = PetshopPresenter()
+    val listPetshops: ArrayList<PetShop> = ArrayList()
+    var adapter: PetshopsRecyclerAdapter? = null
+    var recyclerViewPets: RecyclerView? = null
+    var swipeRefreshLayout: SwipeRefreshLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +37,6 @@ class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
 
     override fun onDestroy() {
         presenter.detachView()
-
         super.onDestroy()
     }
 
@@ -42,23 +45,26 @@ class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
         val view: View? = inflater?.inflate(R.layout.fragment_list_petshops, container, false)
 
         val layoutManager = LinearLayoutManager(activity)
+        recyclerViewPets = view?.findViewById(R.id.recyclerViewPets)
+        swipeRefreshLayout = view?.findViewById(R.id.swipeRefreshLayout)
 
         recyclerViewPets?.layoutManager = layoutManager
         recyclerViewPets?.setHasFixedSize(true)
-
-        val listPetshops: ArrayList<PetShop> = ArrayList()
+        adapter = PetshopsRecyclerAdapter(activity, listPetshops, this)
+        recyclerViewPets?.adapter = adapter
         presenter.loadPetshops()
 
-        val adapter = PetshopsRecyclerAdapter(activity, listPetshops, this)
-        recyclerViewPets?.adapter = adapter
-
         swipeRefreshLayout?.setOnRefreshListener({
-            adapter.update(listPetshops)
-            swipeRefreshLayout.isRefreshing = false
+            presenter.loadPetshops()
         })
 
         setHasOptionsMenu(true)
         return view
+    }
+
+    override fun showPetshopsList(petshops: ArrayList<PetShop>) {
+        adapter?.update(petshops)
+        swipeRefreshLayout?.isRefreshing = false
     }
 
     override fun onItemClick(petShop: PetShop) {

@@ -26,10 +26,6 @@ class SplashActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         val animFadein = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
         animation.interpolator = AccelerateInterpolator()

@@ -1,6 +1,7 @@
 package br.com.tairoroberto.mypet.petshop.contract
 
 import br.com.tairoroberto.mypet.base.BaseMVP
+import br.com.tairoroberto.mypet.petshop.model.PetShop
 import br.com.tairoroberto.mypet.petshop.model.PetshopsResponse
 
 /**
@@ -13,7 +14,9 @@ class PetshopContract {
 
     }
 
-    interface View : BaseMVP.View
+    interface View : BaseMVP.View {
+        fun showPetshopsList(petshops: ArrayList<PetShop>)
+    }
 
     interface Presenter : BaseMVP.Presenter<View> {
         fun loadPetshops()

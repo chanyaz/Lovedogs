@@ -29,6 +29,10 @@ class PetshopPresenter : PetshopContract.Presenter {
 
     override fun manipulatePetshopsResponse(petshopsResponse: PetshopsResponse) {
         Log.i("LOG", "petshops ${petshopsResponse.petshops}")
+
+        if( petshopsResponse.success ) {
+            view?.showPetshopsList(petshopsResponse.petshops)
+        }
     }
 
     override fun showError(str: String) {

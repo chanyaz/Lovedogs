@@ -39,12 +39,12 @@ class PetshopsRecyclerAdapter(val context: Context,
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val imageView: ImageView = view.findViewById(R.id.imageView)
         private val textViewTitle: TextView = view.findViewById(R.id.textViewTitle)
-        private val textViewSubtitle: TextView = view.findViewById(R.id.textViewSubtitle)
+        private val textViewOpenClose: TextView = view.findViewById(R.id.textViewOpenClose)
 
         fun bind(context: Context?, petShop: PetShop) {
             Picasso.with(context).load(petShop.imageUrl).into(imageView)
             textViewTitle.text = petShop.name
-            textViewSubtitle.text = petShop.address
+            textViewOpenClose.text = petShop.address
         }
     }
 
