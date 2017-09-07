@@ -10,6 +10,7 @@ import android.transition.ChangeBounds
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import br.com.tairoroberto.mypet.R
+import br.com.tairoroberto.mypet.base.extension.hideKeyboard
 import br.com.tairoroberto.mypet.base.extension.showProgress
 import br.com.tairoroberto.mypet.register.contract.RegisterContract
 import br.com.tairoroberto.mypet.register.presenter.RegisterPresenter
@@ -29,6 +30,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         presenter.attachView(this)
 
         register_button.setOnClickListener({
+            hideKeyboard()
             showProgress(true)
 
             val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -44,6 +46,10 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     override fun getContext(): Context {
+        return this
+    }
+
+    override fun getActivity(): Activity {
         return this
     }
 

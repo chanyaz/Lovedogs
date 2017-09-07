@@ -26,8 +26,8 @@ fun Activity.showProgress(form: View, progressBar: ProgressBar, show: Boolean) {
                 }
             })
 
-    form.visibility = if (show) View.VISIBLE else View.GONE
-    form.animate()
+    progressBar.visibility = if (show) View.VISIBLE else View.GONE
+    progressBar.animate()
             .setDuration(shortAnimTime)
             .alpha((if (show) 1 else 0).toFloat())
             .setListener(object : AnimatorListenerAdapter() {

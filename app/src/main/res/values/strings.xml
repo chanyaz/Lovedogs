@@ -22,5 +22,6 @@
 
     <string name="facebook_app_id">1906397619682396</string>
     <string name="fb_login_protocol_scheme">fb1906397619682396</string>
+    <string name="logout">Logout</string>
 
 </resources>

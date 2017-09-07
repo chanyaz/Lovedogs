@@ -1,5 +1,6 @@
 package br.com.tairoroberto.mypet.base
 
+import android.app.Activity
 import android.content.Context
 
 /**
@@ -9,6 +10,7 @@ class BaseMVP {
 
     interface View {
         fun getContext(): Context
+        fun getActivity(): Activity
     }
 
     interface Presenter<in V> {

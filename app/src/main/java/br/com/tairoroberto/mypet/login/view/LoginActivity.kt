@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.util.Pair
 import android.support.v7.app.AppCompatActivity
 import android.transition.ChangeBounds
 import android.util.Log
@@ -27,9 +25,8 @@ import com.facebook.login.LoginResult
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_splash.*
 import org.jetbrains.anko.startActivity
-
+import org.json.JSONObject
 
 /**
  * A login screen that offers login via email/password.
@@ -42,7 +39,10 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, FacebookCallback<
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        window.sharedElementExitTransition = ChangeBounds()
+        val changeBounds = ChangeBounds()
+        changeBounds.duration = 2000
+        window.sharedElementExitTransition = changeBounds
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, FacebookCallback<
         })
 
         email_sign_in_button.setOnClickListener {
-            this.hideKeyboard()
+            hideKeyboard()
             presenter.attemptLogin(email, password, checkBox)
         }
 
@@ -86,14 +86,17 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, FacebookCallback<
         email.setText(emailStr)
         Picasso.with(this).load(picture).into(user_profile_photo)
         startActivity<HomeActivity>()
+        finishActivity()
     }
 
     override fun onSuccess(result: LoginResult?) {
         Log.i("LOG", "result ${result.toString()}")
         val parameters = Bundle()
-        parameters.putString("fields", "name,last_name,email,picture")
+        parameters.putString("fields", "name, last_name, email, picture")
         val request = GraphRequest.newMeRequest(result?.accessToken) { userJson, graphResponse ->
-            presenter.setUserFromFacebook(userJson)
+            if (userJson != null) {
+                setUseFromFacebook(userJson["email"].toString(), userJson["name"].toString(), ((userJson["picture"] as JSONObject)["data"] as JSONObject)["url"] as String)
+            }
         }
         request.parameters = parameters
         request.executeAsync()
@@ -116,7 +119,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, FacebookCallback<
         return this
     }
 
-    override fun getActivity(): Activity? {
+    override fun getActivity(): Activity {
         return this
     }
 
@@ -135,6 +138,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, FacebookCallback<
 
     override fun showSnackBarError(msg: String) {
         this.showSnackBarError(email, msg)
+        showProgress(false)
+        hideKeyboard()
     }
 
     override fun showProgress(show: Boolean) {

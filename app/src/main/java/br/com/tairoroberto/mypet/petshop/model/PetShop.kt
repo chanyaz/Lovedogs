@@ -20,16 +20,16 @@ data class PetShop(@SerializedName("_id")
                    var phone: String? = null,
 
                    @SerializedName("latitude")
-                   var latitude: String? = null,
+                   var latitude: Double? = 0.0,
 
                    @SerializedName("longitude")
-                   var longitude: String? = null,
+                   var longitude: Double = 0.0,
 
                    @SerializedName("favorite")
-                   var favorite: Int? = null,
+                   var favorite: Boolean = false,
 
                    @SerializedName("since")
-                   var since: Boolean = false,
+                   var since: String? = null,
 
                    @SerializedName("image_url")
                    var imageUrl: String? = null,
@@ -41,20 +41,21 @@ data class PetShop(@SerializedName("_id")
                    var close: String? = null,
 
                    @SerializedName("stars")
-                   var stars: String? = null) : Parcelable {
+                   var stars: Double = 0.0) : Parcelable {
+
     constructor(source: Parcel) : this(
             source.readString(),
             source.readString(),
             source.readString(),
             source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readValue(Int::class.java.classLoader) as Int?,
+            source.readValue(Double::class.java.classLoader) as Double?,
+            source.readDouble(),
             1 == source.readInt(),
             source.readString(),
             source.readString(),
             source.readString(),
-            source.readString()
+            source.readString(),
+            source.readDouble()
     )
 
     override fun describeContents() = 0
@@ -64,14 +65,14 @@ data class PetShop(@SerializedName("_id")
         writeString(name)
         writeString(address)
         writeString(phone)
-        writeString(latitude)
-        writeString(longitude)
-        writeValue(favorite)
-        writeInt((if (since) 1 else 0))
+        writeValue(latitude)
+        writeDouble(longitude)
+        writeInt((if (favorite) 1 else 0))
+        writeString(since)
         writeString(imageUrl)
         writeString(open)
         writeString(close)
-        writeString(stars)
+        writeDouble(stars)
     }
 
     companion object {

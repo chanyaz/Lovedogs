@@ -58,7 +58,6 @@ class LoginPresenter : LoginContract.Presenter {
             cancel = true
         }
 
-
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -98,12 +97,5 @@ class LoginPresenter : LoginContract.Presenter {
 
     override fun showProgress(show: Boolean) {
         view?.showProgress(show)
-    }
-
-    override fun setUserFromFacebook(userJson: JSONObject?) {
-        if (userJson != null) {
-            view?.setUseFromFacebook(userJson["email"].toString(), userJson["name"].toString(), ((userJson["picture"] as JSONObject)["data"] as JSONObject)["url"] as String)
-            Log.i("LOG", "User $userJson")
-        }
     }
 }

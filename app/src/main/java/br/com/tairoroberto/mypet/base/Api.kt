@@ -2,6 +2,7 @@ package br.com.tairoroberto.mypet.base
 
 import br.com.tairoroberto.mypet.login.model.LoginResponse
 import br.com.tairoroberto.mypet.petshop.model.PetShop
+import br.com.tairoroberto.mypet.petshop.model.PetshopsResponse
 import br.com.tairoroberto.mypet.register.model.UserRegisterRequest
 import br.com.tairoroberto.mypet.register.model.UserRegisterResponse
 import io.reactivex.Observable
@@ -23,6 +24,6 @@ interface Api {
     fun registerUser(@Body userRegisterRequest: UserRegisterRequest) : Observable<UserRegisterResponse>
 
     @GET("/petshops")
-    fun getPetshops(): Observable<List<PetShop>>
+    fun getPetshops(): Observable<PetshopsResponse>
 }
 
