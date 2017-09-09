@@ -76,20 +76,26 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".services.CustomFirebaseInstaceIdService">
+        <service android:name=".services.CustomFirebaseInstaceIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".services.CustomFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name=".services.CustomFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
-
+        <activity
+            android:name=".petshopdetail.PetshopDetailActivity"
+            android:label="@string/title_activity_petshop_detail"
+            android:parentActivityName=".home.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.com.tairoroberto.lovedogs.home.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -14,6 +14,7 @@ import br.com.tairoroberto.lovedogs.petshop.contract.PetshopContract
 import br.com.tairoroberto.lovedogs.petshop.model.PetShop
 import br.com.tairoroberto.lovedogs.petshop.presenter.PetshopPresenter
 import br.com.tairoroberto.lovedogs.petshopdetail.PetShopDetailFragment
+import br.com.tairoroberto.lovedogs.petshopdetail.PetshopDetailActivity
 import com.facebook.AccessToken
 import com.facebook.GraphRequest
 import com.facebook.HttpMethod
@@ -69,7 +70,7 @@ class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
     }
 
     override fun onItemClick(petShop: PetShop) {
-        (activity as HomeActivity).replaceFragment(PetShopDetailFragment.newInstance(petShop), true)
+        activity.startActivity<PetshopDetailActivity>("petShop" to petShop)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
