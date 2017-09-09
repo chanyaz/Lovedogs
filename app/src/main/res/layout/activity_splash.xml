@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="br.com.tairoroberto.mypet.login.view.SplashActivity">
+    tools:context="br.com.tairoroberto.lovedogs.login.view.SplashActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageSplash"

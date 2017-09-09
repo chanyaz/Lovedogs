@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Pet</string>
+    <string name="app_name">Love dogs</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -23,5 +23,9 @@
     <string name="facebook_app_id">1906397619682396</string>
     <string name="fb_login_protocol_scheme">fb1906397619682396</string>
     <string name="logout">Logout</string>
+    <string name="pet_shops">Pet Shops</string>
+    <string name="services">Serviços</string>
+    <string name="favorites">Favoritos</string>
+    <string name="title_activity_maps2">Map</string>
 
 </resources>

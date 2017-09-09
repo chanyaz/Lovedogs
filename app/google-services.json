@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "444758986532",
-    "firebase_url": "https://mypet-739b8.firebaseio.com",
-    "project_id": "mypet-739b8",
-    "storage_bucket": "mypet-739b8.appspot.com"
+    "project_number": "861323480105",
+    "firebase_url": "https://lovedogs-18e4a.firebaseio.com",
+    "project_id": "lovedogs-18e4a",
+    "storage_bucket": "lovedogs-18e4a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:444758986532:android:a6ac91fbfd53f7cc",
+        "mobilesdk_app_id": "1:861323480105:android:0653e6b4cd24a50b",
         "android_client_info": {
-          "package_name": "br.com.tairoroberto.mypet"
+          "package_name": "br.com.tairoroberto.lovedogs"
         }
       },
       "oauth_client": [
         {
-          "client_id": "444758986532-ecrti65seb9unr4cn88cmk3dt05967q2.apps.googleusercontent.com",
+          "client_id": "861323480105-8fmccp2a3tk47p9cojbkblp5fl97ub27.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "br.com.tairoroberto.mypet",
+            "package_name": "br.com.tairoroberto.lovedogs",
             "certificate_hash": "773e14b2526720a90280382ddbb93d922702c1aa"
           }
         },
         {
-          "client_id": "444758986532-kikd8tvqdc4k19qpuddnlkf67p3n1e86.apps.googleusercontent.com",
+          "client_id": "861323480105-9f1erl9tqjuivddnobr9iadnfl78sf3k.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAj3X-2_fdV9gFu6AvqBykpfMfhpUyYFnE"
+          "current_key": "AIzaSyBzuA5O661qKRaakA35jNKql_-LzLKJ9Z0"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "444758986532-kikd8tvqdc4k19qpuddnlkf67p3n1e86.apps.googleusercontent.com",
+              "client_id": "861323480105-9f1erl9tqjuivddnobr9iadnfl78sf3k.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

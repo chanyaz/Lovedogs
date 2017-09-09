@@ -2,13 +2,13 @@
 
 buildscript {
 
-    ext.kotlin_version = '1.1.4'
-    ext.support_libs = '26.0.1'
+    ext.kotlin_version = '1.1.4-3'
+    ext.support_libs = '26.0.2'
     ext.constraint_layout = '1.0.2'
     ext.espresso = '3.0.0'
     ext.junit = '4.12'
 
-    ext.firebase = '11.2.0'
+    ext.firebase = '11.2.2'
     ext.eventbus = '3.0.0'
     ext.annotations = '4.3.1'
     ext.retrofit = '2.3.0'
@@ -35,7 +35,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta4'
+        classpath 'com.android.tools.build:gradle:3.0.0-beta5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:3.1.0'
     }
