@@ -13,6 +13,9 @@ data class PetShop(@SerializedName("_id")
                    @SerializedName("name")
                    var name: String? = null,
 
+                   @SerializedName("description")
+                   var description: String? = null,
+
                    @SerializedName("address")
                    var address: String? = null,
 
@@ -48,7 +51,8 @@ data class PetShop(@SerializedName("_id")
             source.readString(),
             source.readString(),
             source.readString(),
-            source.readValue(Double::class.java.classLoader) as Double,
+            source.readString(),
+            source.readDouble(),
             source.readDouble(),
             1 == source.readInt(),
             source.readString(),
@@ -63,9 +67,10 @@ data class PetShop(@SerializedName("_id")
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(id)
         writeString(name)
+        writeString(description)
         writeString(address)
         writeString(phone)
-        writeValue(latitude)
+        writeDouble(latitude)
         writeDouble(longitude)
         writeInt((if (favorite) 1 else 0))
         writeString(since)

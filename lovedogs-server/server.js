@@ -191,6 +191,7 @@ router.route("/petshops")
         //aqui setamos os campos do usuario (que virá do request)
         petshop.name                = req.body.name;
         petshop.address             = req.body.address;
+        petshop.description         = req.body.description;
         petshop.phone               = req.body.phone;
         petshop.latitude            = req.body.latitude;
         petshop.longitude           = req.body.longitude;
@@ -227,6 +228,72 @@ router.route("/petshops")
             res.json(response);
         });
     })
+    .put(function (req, res) {
+            var response = {};
+            // first find out record exists or not
+            // if it does then update the record
+
+            Petshop.findById(req.params.id, function (err, data) {
+                if (err) {
+                    response = {"success": false, "message": "Error fetching data"};
+                } else {
+                    // we got data from Mongo.
+                    // change it accordingly.
+                    if (req.body.name !== undefined) {
+                        data.name = req.body.name;
+                    }
+
+                    if (req.body.description !== undefined) {
+                        data.description = req.body.description;
+                    }
+
+                    if (req.body.address !== undefined) {
+                        data.address = req.body.address;
+                    }
+
+                    if (req.body.phone !== undefined) {
+                        data.phone = req.body.phone;
+                    }
+
+                    if (req.body.latitude !== undefined) {
+                        data.latitude = req.body.latitude;
+                    }
+
+                    if (req.body.longitude !== undefined) {
+                        data.longitude = req.body.longitude;
+                    }
+
+                    if (req.body.favorite !== undefined) {
+                        data.favorite = req.body.favorite;
+                    }
+                    if (req.body.since !== undefined) {
+                        data.since = req.body.since;
+                    }
+
+                    if (req.body.image_url !== undefined) {
+                        data.image_url = req.body.image_url;
+                    }
+
+                    if (req.body.open !== undefined) {
+                        data.open = req.body.open;
+                    }
+
+                    if (req.body.close !== undefined) {
+                        data.close = req.body.close;
+                    }
+
+                    // save the data
+                    data.save(function (err) {
+                        if (err) {
+                            response = {"success": false, "message": "Error updating data"};
+                        } else {
+                            response = {"success": true, "message": "Data is updated for " + req.params.id, "user": data[0]};
+                        }
+                        res.json(response);
+                    })
+                }
+            })
+        })
     .delete(function (req, res) {
             var response = {};
             // find the data

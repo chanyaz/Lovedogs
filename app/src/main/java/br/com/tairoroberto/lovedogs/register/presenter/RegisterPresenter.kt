@@ -55,10 +55,10 @@ class RegisterPresenter : RegisterContract.Presenter {
         }
 
         userRegisterrequest.name = name
-        userRegisterrequest.address = name
-        userRegisterrequest.phone = name
-        userRegisterrequest.email = name
-        userRegisterrequest.password = name
+        userRegisterrequest.address = address
+        userRegisterrequest.phone = phone
+        userRegisterrequest.email = email
+        userRegisterrequest.password = password
 
         model?.registerUser(userRegisterrequest)
     }

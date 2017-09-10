@@ -6,6 +6,7 @@ var mongoSchema = mongoose.Schema;
 var PetshopSchema = new mongoose.Schema({
     name: String,
     address: String,
+    description: String,
     phone: String,
     latitude: Number,
     longitude: Number,
