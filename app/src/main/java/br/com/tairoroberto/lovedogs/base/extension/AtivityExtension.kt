@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.app.Activity
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
@@ -13,7 +14,7 @@ import android.widget.ProgressBar
 /**
  * Created by tairo on 9/2/17.
  */
-fun Activity.showProgress(form: View, progressBar: ProgressBar, show: Boolean) {
+fun AppCompatActivity.showProgress(form: View, progressBar: ProgressBar, show: Boolean) {
     val shortAnimTime = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
 
     form.visibility = if (show) View.GONE else View.VISIBLE

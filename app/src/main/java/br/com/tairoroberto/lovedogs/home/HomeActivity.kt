@@ -2,11 +2,14 @@ package br.com.tairoroberto.lovedogs.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import br.com.tairoroberto.lovedogs.R
+import br.com.tairoroberto.lovedogs.base.extension.showProgress
 import br.com.tairoroberto.lovedogs.mapa.MapsActivity
 import br.com.tairoroberto.lovedogs.petshop.view.ListPetshopsFragment
 import com.google.android.gms.common.ConnectionResult
@@ -18,6 +21,7 @@ import kotlinx.android.synthetic.main.content_home.*
 class HomeActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private var mGoogleApiClient: GoogleApiClient? = null
     private var fragmentManager: FragmentManager? = null
+    private var fragment: Fragment? = null
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -58,7 +62,7 @@ class HomeActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
 
     }
 
-    fun replaceFragment(fragment: Fragment, addToStack: Boolean) {
+    private fun replaceFragment(fragment: Fragment?, addToStack: Boolean) {
         if (addToStack) {
             fragmentManager?.beginTransaction()?.replace(R.id.content, fragment, null)?.addToBackStack("fragment")?.commit()
         } else {

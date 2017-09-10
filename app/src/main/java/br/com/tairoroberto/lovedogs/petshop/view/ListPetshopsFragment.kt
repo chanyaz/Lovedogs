@@ -7,19 +7,22 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
+import android.widget.ProgressBar
 import br.com.tairoroberto.lovedogs.R
-import br.com.tairoroberto.lovedogs.home.HomeActivity
 import br.com.tairoroberto.lovedogs.login.view.LoginActivity
 import br.com.tairoroberto.lovedogs.petshop.contract.PetshopContract
 import br.com.tairoroberto.lovedogs.petshop.model.PetShop
 import br.com.tairoroberto.lovedogs.petshop.presenter.PetshopPresenter
-import br.com.tairoroberto.lovedogs.petshopdetail.PetShopDetailFragment
 import br.com.tairoroberto.lovedogs.petshopdetail.PetshopDetailActivity
 import com.facebook.AccessToken
 import com.facebook.GraphRequest
 import com.facebook.HttpMethod
 import com.facebook.login.LoginManager
+import de.hdodenhof.circleimageview.CircleImageView
+import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter
+import jp.wasabeef.recyclerview.animators.SlideInRightAnimator
 import org.jetbrains.anko.startActivity
+
 
 /**
  * A simple [Fragment] subclass.
@@ -27,7 +30,7 @@ import org.jetbrains.anko.startActivity
 class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
 
     private val presenter: PetshopContract.Presenter = PetshopPresenter()
-    val listPetshops: ArrayList<PetShop> = ArrayList()
+    var listPetshops: ArrayList<PetShop>? = ArrayList()
     var adapter: PetshopsRecyclerAdapter? = null
     var recyclerViewPets: RecyclerView? = null
     var swipeRefreshLayout: SwipeRefreshLayout? = null
@@ -52,9 +55,15 @@ class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
 
         recyclerViewPets?.layoutManager = layoutManager
         recyclerViewPets?.setHasFixedSize(true)
+
+        if (savedInstanceState?.getParcelableArray("listPetshops") != null) {
+            listPetshops = savedInstanceState.getParcelableArrayList("listPetshops")
+        } else {
+            presenter.loadPetshops()
+        }
+
         adapter = PetshopsRecyclerAdapter(activity, listPetshops, this)
         recyclerViewPets?.adapter = adapter
-        presenter.loadPetshops()
 
         swipeRefreshLayout?.setOnRefreshListener({
             presenter.loadPetshops()
@@ -103,5 +112,10 @@ class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
                     activity.startActivity<LoginActivity>()
                     activity.finish()
                 }).executeAsync()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        outState?.putParcelableArrayList("listPetshops", listPetshops)
+        super.onSaveInstanceState(outState)
     }
 }

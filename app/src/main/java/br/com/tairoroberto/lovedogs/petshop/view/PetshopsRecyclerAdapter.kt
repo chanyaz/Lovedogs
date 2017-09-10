@@ -5,27 +5,32 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import br.com.tairoroberto.lovedogs.R
 import br.com.tairoroberto.lovedogs.base.extension.loadImage
 import br.com.tairoroberto.lovedogs.petshop.model.PetShop
-import com.squareup.picasso.Picasso
 
 
 /**
  * Created by tairo on 8/22/17.
  */
 class PetshopsRecyclerAdapter(val context: Context,
-                              private var listPetshops: ArrayList<PetShop>,
+                              private var listPetshops: ArrayList<PetShop>?,
                               private val onClick: OnClick) : RecyclerView.Adapter<PetshopsRecyclerAdapter.ViewHolder>() {
 
+    private var lastPosition = -1
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val petShop = listPetshops[position]
-        holder.bind(context, petShop)
-        holder.itemView.setOnClickListener({
-            onClick.onItemClick(petShop)
-        })
+        val petShop = listPetshops?.get(position)
+        if (petShop != null) {
+            holder.bind(context, petShop)
+            holder.itemView.setOnClickListener({
+                onClick.onItemClick(petShop)
+            })
+        }
+        setAnimation(holder.itemView, position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,8 +38,16 @@ class PetshopsRecyclerAdapter(val context: Context,
         return ViewHolder(layoutInflater.inflate(R.layout.petshops_item, parent, false))
     }
 
+    private fun setAnimation(viewToAnimate: View, position: Int) {
+        if (position > 0) {
+            val animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left)
+            viewToAnimate.startAnimation(animation)
+            lastPosition = position
+        }
+    }
+
     override fun getItemCount(): Int {
-        return listPetshops.size
+        return listPetshops?.size as Int
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -50,7 +63,8 @@ class PetshopsRecyclerAdapter(val context: Context,
     }
 
     fun update(listPetshops: ArrayList<PetShop>) {
-        this.listPetshops = listPetshops
+        this.listPetshops?.clear()
+        this.listPetshops?.addAll(listPetshops)
         notifyDataSetChanged()
     }
 }

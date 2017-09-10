@@ -88,5 +88,8 @@ dependencies {
     // Room
     implementation "android.arch.persistence.room:runtime:1.0.0-alpha9"
     kapt "android.arch.persistence.room:compiler:1.0.0-alpha9"
+
+    // Animation
+    compile 'jp.wasabeef:recyclerview-animators:2.2.7'
 }
 apply plugin: 'com.google.gms.google-services'
