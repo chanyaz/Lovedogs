@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.transition.ChangeBounds
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import br.com.tairoroberto.lovedogs.R
@@ -22,8 +21,6 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     private val presenter: RegisterContract.Presenter = RegisterPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        window.sharedElementExitTransition = ChangeBounds()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         presenter.attachView(this)
@@ -78,7 +75,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     override fun setErrorRegister(idView: Int, msg: String) {
-        val  editText = findViewById<EditText>(idView)
+        val editText = findViewById<EditText>(idView)
         editText.error = msg
         editText.requestFocus()
     }

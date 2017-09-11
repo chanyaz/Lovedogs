@@ -2,21 +2,28 @@ package br.com.tairoroberto.lovedogs.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
-import android.view.View
+import android.view.Menu
+import android.view.MenuItem
 import br.com.tairoroberto.lovedogs.R
-import br.com.tairoroberto.lovedogs.base.extension.showProgress
-import br.com.tairoroberto.lovedogs.mapa.MapsActivity
+import br.com.tairoroberto.lovedogs.about.AboutActivity
+import br.com.tairoroberto.lovedogs.login.view.LoginActivity
+import br.com.tairoroberto.lovedogs.petshop.view.ListFavoritesFragment
 import br.com.tairoroberto.lovedogs.petshop.view.ListPetshopsFragment
+import br.com.tairoroberto.lovedogs.settings.SettingsActivity
+import com.facebook.AccessToken
+import com.facebook.GraphRequest
+import com.facebook.HttpMethod
+import com.facebook.login.LoginManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.places.Places
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
+import org.jetbrains.anko.startActivity
 
 class HomeActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private var mGoogleApiClient: GoogleApiClient? = null
@@ -30,8 +37,7 @@ class HomeActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                //message.setText(R.string.title_dashboard)
-                startActivity(Intent(this, MapsActivity::class.java))
+                replaceFragment(ListFavoritesFragment(), false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
@@ -56,6 +62,46 @@ class HomeActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(this, this)
                 .build()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.home, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.logout) {
+            disconnectFromFacebook()
+        }
+
+        if( item?.itemId == R.id.settings ) {
+            startActivity<SettingsActivity>()
+        }
+
+        if( item?.itemId == R.id.about) {
+            startActivity<AboutActivity>()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun disconnectFromFacebook() {
+        if (AccessToken.getCurrentAccessToken() == null) {
+            startActivity<LoginActivity>()
+            finish()
+            return
+        }
+        GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me/permissions/",
+                null,
+                HttpMethod.DELETE,
+                GraphRequest.Callback {
+                    LoginManager.getInstance().logOut()
+
+                    startActivity<LoginActivity>()
+                    finish()
+                }).executeAsync()
     }
 
     override fun onConnectionFailed(connectionResult: ConnectionResult) {

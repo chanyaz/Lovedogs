@@ -19,9 +19,9 @@ import br.com.tairoroberto.lovedogs.petshop.model.PetShop
 /**
  * Created by tairo on 8/22/17.
  */
-class PetshopsRecyclerAdapter(val context: Context,
+class FavoriteRecyclerAdapter(val context: Context,
                               private var listPetshops: ArrayList<PetShop>?,
-                              private val onClick: OnClick) : RecyclerView.Adapter<PetshopsRecyclerAdapter.ViewHolder>() {
+                              private val onClick: OnClick) : RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
 
     private var lastPosition = -1
 

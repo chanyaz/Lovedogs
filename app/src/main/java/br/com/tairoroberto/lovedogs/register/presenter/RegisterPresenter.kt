@@ -70,7 +70,7 @@ class RegisterPresenter : RegisterContract.Presenter {
             view?.finishActivity()
 
         }else{
-            view?.showErrorRegister("Falha ao registrar usuario :(")
+            view?.showErrorRegister("Falha ao registrar usuario, ${loginResponse.message} :(")
         }
     }
 

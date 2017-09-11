@@ -49,20 +49,34 @@ router.route("/users")
 
     // @POST http://165.227.92.219:3000/users
     .post(function (req, res) {
-        var user = new User();
 
-        //aqui setamos os campos do usuario (que virá do request)
-        user.name     = req.body.name;
-        user.address  = req.body.address;
-        user.phone    = req.body.phone;
-        user.email    = req.body.email;
-        user.password = req.body.password;
-
-        user.save(function (error) {
-            if (error)
+        User.find({email: req.body.email, password: req.body.password}, function (err, data) {
+            // This will run Mongo Query to fetch data based on ID.
+            if (err) {
                 res.send(error);
+            }
 
-            res.json({"success": true, "message": "Usuário criado!"});
+            if (data.length == 0) {
+
+                var user = new User();
+
+                //aqui setamos os campos do usuario (que virá do request)
+                user.name     = req.body.name;
+                user.address  = req.body.address;
+                user.phone    = req.body.phone;
+                user.email    = req.body.email;
+                user.password = req.body.password;
+
+                user.save(function (error) {
+                    if (error)
+                        res.send(error);
+
+                    res.json({"success": true, "message": "Usuário criado!"});
+                });
+
+            } else {
+                res.json({"success": false, "message": "Usuario já existe !!!"});
+            }
         });
     });
 

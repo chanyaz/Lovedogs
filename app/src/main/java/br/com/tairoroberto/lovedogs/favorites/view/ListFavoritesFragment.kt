@@ -12,18 +12,18 @@ import android.view.ViewGroup
 import br.com.tairoroberto.lovedogs.R
 import br.com.tairoroberto.lovedogs.petshop.contract.PetshopContract
 import br.com.tairoroberto.lovedogs.petshop.model.PetShop
-import br.com.tairoroberto.lovedogs.petshop.presenter.PetshopPresenter
+import br.com.tairoroberto.lovedogs.petshop.presenter.FavoritePresenter
 import br.com.tairoroberto.lovedogs.petshopdetail.PetshopDetailActivity
 import org.jetbrains.anko.startActivity
 
 /**
  * A simple [Fragment] subclass.
  */
-class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
+class ListFavoritesFragment : Fragment(), PetshopContract.View, OnClick {
 
-    private val presenter: PetshopContract.Presenter = PetshopPresenter()
+    private val presenter: PetshopContract.Presenter = FavoritePresenter()
     var listPetshops: ArrayList<PetShop>? = ArrayList()
-    var adapter: PetshopsRecyclerAdapter? = null
+    var adapter: FavoriteRecyclerAdapter? = null
     var recyclerViewPets: RecyclerView? = null
     var swipeRefreshLayout: SwipeRefreshLayout? = null
 
@@ -50,7 +50,7 @@ class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
 
         presenter.loadPetshops()
 
-        adapter = PetshopsRecyclerAdapter(activity, listPetshops, this)
+        adapter = FavoriteRecyclerAdapter(activity, listPetshops, this)
         recyclerViewPets?.adapter = adapter
 
         swipeRefreshLayout?.setOnRefreshListener({

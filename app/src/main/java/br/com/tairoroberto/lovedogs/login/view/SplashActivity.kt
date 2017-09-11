@@ -1,6 +1,7 @@
 package br.com.tairoroberto.lovedogs.login.view
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
@@ -21,9 +22,12 @@ class SplashActivity : AppCompatActivity() {
     val animation = AnimationSet(true)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val changeBounds = ChangeBounds()
-        changeBounds.duration = 2000
-        window.sharedElementExitTransition = changeBounds
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            val changeBounds =  ChangeBounds()
+            changeBounds.duration = 2000
+            window.sharedElementExitTransition = changeBounds
+        }
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -114,7 +118,12 @@ class SplashActivity : AppCompatActivity() {
                             val options: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this@SplashActivity,
                                     Pair.create(imageSplash, "profile_photo"))
 
-                            startActivity(Intent(this@SplashActivity, LoginActivity::class.java), options.toBundle())
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                startActivity(Intent(this@SplashActivity, LoginActivity::class.java), options.toBundle())
+                            } else {
+                                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                            }
+
                             finish()
                         }
                     }
