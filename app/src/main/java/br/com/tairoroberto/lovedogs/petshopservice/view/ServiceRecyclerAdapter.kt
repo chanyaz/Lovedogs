@@ -36,7 +36,7 @@ class ServiceRecyclerAdapter(val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return ViewHolder(layoutInflater.inflate(R.layout.petshops_item, parent, false))
+        return ViewHolder(layoutInflater.inflate(R.layout.service_item, parent, false))
     }
 
     private fun setAnimation(viewToAnimate: View, position: Int) {

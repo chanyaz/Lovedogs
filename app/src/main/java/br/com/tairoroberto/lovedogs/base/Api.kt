@@ -26,7 +26,7 @@ interface Api {
     @GET("/petshops")
     fun getPetshops(): Observable<PetshopsResponse>
 
-    @GET("/services")
+    @GET("/services/petshop")
     fun getServices(): Observable<ServicesResponse>
 }
 
