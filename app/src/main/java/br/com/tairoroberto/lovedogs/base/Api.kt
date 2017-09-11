@@ -2,6 +2,7 @@ package br.com.tairoroberto.lovedogs.base
 
 import br.com.tairoroberto.lovedogs.login.model.LoginResponse
 import br.com.tairoroberto.lovedogs.petshop.model.PetshopsResponse
+import br.com.tairoroberto.lovedogs.petshopservice.model.ServicesResponse
 import br.com.tairoroberto.lovedogs.register.model.UserRegisterRequest
 import br.com.tairoroberto.lovedogs.register.model.UserRegisterResponse
 import io.reactivex.Observable
@@ -24,5 +25,8 @@ interface Api {
 
     @GET("/petshops")
     fun getPetshops(): Observable<PetshopsResponse>
+
+    @GET("/services")
+    fun getServices(): Observable<ServicesResponse>
 }
 

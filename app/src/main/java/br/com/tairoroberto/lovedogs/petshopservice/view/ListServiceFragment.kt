@@ -10,20 +10,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.tairoroberto.lovedogs.R
-import br.com.tairoroberto.lovedogs.petshop.contract.FavoriteContract
+import br.com.tairoroberto.lovedogs.petshop.contract.PetshopContract
+import br.com.tairoroberto.lovedogs.petshop.contract.ServiceContract
 import br.com.tairoroberto.lovedogs.petshop.model.PetShop
-import br.com.tairoroberto.lovedogs.petshop.presenter.FavoritePresenter
+import br.com.tairoroberto.lovedogs.petshop.presenter.ServicePresenter
 import br.com.tairoroberto.lovedogs.petshopdetail.PetshopDetailActivity
+import br.com.tairoroberto.lovedogs.petshopservice.model.Service
 import org.jetbrains.anko.startActivity
 
 /**
  * A simple [Fragment] subclass.
  */
-class ListFavoritesFragment : Fragment(), FavoriteContract.View, OnClick {
+class ListServiceFragment : Fragment(), ServiceContract.View, OnClick, br.com.tairoroberto.lovedogs.petshopservice.view.OnClick {
 
-    private val presenter: FavoriteContract.Presenter = FavoritePresenter()
-    var listPetshops: ArrayList<PetShop>? = ArrayList()
-    var adapter: FavoriteRecyclerAdapter? = null
+    private val presenter: ServiceContract.Presenter = ServicePresenter()
+    var listServices: ArrayList<Service>? = ArrayList()
+    var adapter: ServiceRecyclerAdapter? = null
     var recyclerViewPets: RecyclerView? = null
     var swipeRefreshLayout: SwipeRefreshLayout? = null
 
@@ -48,20 +50,24 @@ class ListFavoritesFragment : Fragment(), FavoriteContract.View, OnClick {
         recyclerViewPets?.layoutManager = layoutManager
         recyclerViewPets?.setHasFixedSize(true)
 
-        presenter.loadPetshops()
+        presenter.loadServices()
 
-        adapter = FavoriteRecyclerAdapter(activity, listPetshops, this)
+        adapter = ServiceRecyclerAdapter(activity, listServices, this)
         recyclerViewPets?.adapter = adapter
 
         swipeRefreshLayout?.setOnRefreshListener({
-            presenter.loadPetshops()
+            presenter.loadServices()
         })
 
         return view
     }
 
-    override fun showPetshopsList(petshops: ArrayList<PetShop>) {
-        adapter?.update(petshops)
+    override fun onItemClick(service: Service) {
+
+    }
+
+    override fun showServiceList(services: ArrayList<Service>) {
+        adapter?.update(services)
         swipeRefreshLayout?.isRefreshing = false
     }
 

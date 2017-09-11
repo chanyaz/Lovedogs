@@ -1,6 +1,5 @@
 package br.com.tairoroberto.lovedogs.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
@@ -13,6 +12,7 @@ import br.com.tairoroberto.lovedogs.about.AboutActivity
 import br.com.tairoroberto.lovedogs.login.view.LoginActivity
 import br.com.tairoroberto.lovedogs.petshop.view.ListFavoritesFragment
 import br.com.tairoroberto.lovedogs.petshop.view.ListPetshopsFragment
+import br.com.tairoroberto.lovedogs.petshop.view.ListServiceFragment
 import br.com.tairoroberto.lovedogs.settings.SettingsActivity
 import com.facebook.AccessToken
 import com.facebook.GraphRequest
@@ -41,7 +41,7 @@ class HomeActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                //message.setText(R.string.title_notifications)
+                replaceFragment(ListServiceFragment(), false)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -74,11 +74,11 @@ class HomeActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
             disconnectFromFacebook()
         }
 
-        if( item?.itemId == R.id.settings ) {
+        if (item?.itemId == R.id.settings) {
             startActivity<SettingsActivity>()
         }
 
-        if( item?.itemId == R.id.about) {
+        if (item?.itemId == R.id.about) {
             startActivity<AboutActivity>()
         }
 
