@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import android.widget.TextView
 import br.com.tairoroberto.lovedogs.R
 import br.com.tairoroberto.lovedogs.base.extension.loadImage
 import br.com.tairoroberto.lovedogs.petshopservice.model.Service
 import br.com.tairoroberto.lovedogs.petshopservice.view.OnClick
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 /**
@@ -52,7 +52,7 @@ class ServiceRecyclerAdapter(val context: Context,
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val imageView: ImageView = view.findViewById(R.id.imageView)
+        private val imageView: CircleImageView = view.findViewById(R.id.imageView)
         private val textViewTitle: TextView = view.findViewById(R.id.textViewTitle)
         private val textViewValue: TextView = view.findViewById(R.id.textViewValue)
 
@@ -60,7 +60,7 @@ class ServiceRecyclerAdapter(val context: Context,
 
             imageView.loadImage(service.imageService)
             textViewTitle.text = service.name
-            textViewValue.text = service.value.toString()
+            textViewValue.text = imageView.context.getString(R.string.formated_value_money, service.value.toString())
         }
     }
 

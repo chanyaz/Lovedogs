@@ -61,10 +61,10 @@ router.route("/users")
                 var user = new User();
 
                 //aqui setamos os campos do usuario (que virá do request)
-                user.name     = req.body.name;
-                user.address  = req.body.address;
-                user.phone    = req.body.phone;
-                user.email    = req.body.email;
+                user.name = req.body.name;
+                user.address = req.body.address;
+                user.phone = req.body.phone;
+                user.email = req.body.email;
                 user.password = req.body.password;
 
                 user.save(function (error) {
@@ -133,7 +133,11 @@ router.route("/users/:id")
                     if (err) {
                         response = {"success": false, "message": "Error updating data"};
                     } else {
-                        response = {"success": true, "message": "Data is updated for " + req.params.id, "user": data[0]};
+                        response = {
+                            "success": true,
+                            "message": "Data is updated for " + req.params.id,
+                            "user": data[0]
+                        };
                     }
                     res.json(response);
                 })
@@ -152,7 +156,11 @@ router.route("/users/:id")
                     if (err) {
                         response = {"success": false, "message": "Error deleting data"};
                     } else {
-                        response = {"success": true, "deleted": true, "message": "Data associated with " + req.params.id + "is deleted"};
+                        response = {
+                            "success": true,
+                            "deleted": true,
+                            "message": "Data associated with " + req.params.id + "is deleted"
+                        };
                     }
                     res.json(response);
                 });
@@ -162,23 +170,23 @@ router.route("/users/:id")
 
 
 router.route("/login/:email/:password")
-.get(function (req, res) {
-    var response = {};
-    User.find({email: req.params.email, password: req.params.password}, function (err, data) {
-        // This will run Mongo Query to fetch data based on ID.
-        if (err) {
-            res.send(error);
-        }
+    .get(function (req, res) {
+        var response = {};
+        User.find({email: req.params.email, password: req.params.password}, function (err, data) {
+            // This will run Mongo Query to fetch data based on ID.
+            if (err) {
+                res.send(error);
+            }
 
-        if (data.length == 0) {
-            response = {"success": false};
-        } else {
-            response = {"success": true, "user": data[0]};
-        }
+            if (data.length == 0) {
+                response = {"success": false};
+            } else {
+                response = {"success": true, "user": data[0]};
+            }
 
-        res.json(response);
+            res.json(response);
+        });
     });
-});
 
 
 router.route("/petshops")
@@ -193,7 +201,7 @@ router.route("/petshops")
             if (data.length == 0) {
                 response = {"success": false};
             } else {
-               response = {"success": true, "petshops": data};
+                response = {"success": true, "petshops": data};
             }
 
             res.json(response);
@@ -203,18 +211,18 @@ router.route("/petshops")
         var petshop = new Petshop();
 
         //aqui setamos os campos do usuario (que virá do request)
-        petshop.name                = req.body.name;
-        petshop.address             = req.body.address;
-        petshop.description         = req.body.description;
-        petshop.phone               = req.body.phone;
-        petshop.latitude            = req.body.latitude;
-        petshop.longitude           = req.body.longitude;
-        petshop.favorite            = req.body.favorite;
-        petshop.since               = req.body.since;
-        petshop.image_url           = req.body.image_url;
-        petshop.open                = req.body.open;
-        petshop.close               = req.body.close;
-        petshop.stars               = req.body.stars;
+        petshop.name = req.body.name;
+        petshop.address = req.body.address;
+        petshop.description = req.body.description;
+        petshop.phone = req.body.phone;
+        petshop.latitude = req.body.latitude;
+        petshop.longitude = req.body.longitude;
+        petshop.favorite = req.body.favorite;
+        petshop.since = req.body.since;
+        petshop.image_url = req.body.image_url;
+        petshop.open = req.body.open;
+        petshop.close = req.body.close;
+        petshop.stars = req.body.stars;
 
         petshop.save(function (error) {
             if (error)
@@ -222,15 +230,85 @@ router.route("/petshops")
 
             res.json({"message": "Petshop criado!"});
         });
+    })
+    .put(function (req, res) {
+        var response = {};
+        // first find out record exists or not
+        // if it does then update the record
+
+        Petshop.findById(req.body._id, function (err, data) {
+            if (err) {
+                response = {"success": false, "message": "Error fetching data"};
+            } else {
+                // we got data from Mongo.
+                // change it accordingly.
+                if (req.body.name !== undefined) {
+                    data.name = req.body.name;
+                }
+
+                if (req.body.description !== undefined) {
+                    data.description = req.body.description;
+                }
+
+                if (req.body.address !== undefined) {
+                    data.address = req.body.address;
+                }
+
+                if (req.body.phone !== undefined) {
+                    data.phone = req.body.phone;
+                }
+
+                if (req.body.latitude !== undefined) {
+                    data.latitude = req.body.latitude;
+                }
+
+                if (req.body.longitude !== undefined) {
+                    data.longitude = req.body.longitude;
+                }
+
+                if (req.body.favorite !== undefined) {
+                    data.favorite = req.body.favorite;
+                }
+                if (req.body.since !== undefined) {
+                    data.since = req.body.since;
+                }
+
+                if (req.body.image_url !== undefined) {
+                    data.image_url = req.body.image_url;
+                }
+
+                if (req.body.open !== undefined) {
+                    data.open = req.body.open;
+                }
+
+                if (req.body.close !== undefined) {
+                    data.close = req.body.close;
+                }
+
+                // save the data
+                data.save(function (err) {
+                    if (err) {
+                        response = {"success": false, "message": "Error updating data"};
+                    } else {
+                        response = {
+                            "success": true,
+                            "message": "Data is updated for " + req.params.id,
+                            "petshop": data
+                        };
+                    }
+                    res.json(response);
+                })
+            }
+        })
     });
 
-    router.route("/petshops/:id")
+router.route("/petshops/:id")
     .get(function (req, res) {
         var response = {};
         Petshop.findById(req.params.id, function (err, data) {
             // This will run Mongo Query to fetch data based on ID.
             if (err) {
-               res.send(error);
+                res.send(err);
             }
 
             if (data.length == 0) {
@@ -242,91 +320,45 @@ router.route("/petshops")
             res.json(response);
         });
     })
-    .put(function (req, res) {
-            var response = {};
-            // first find out record exists or not
-            // if it does then update the record
-
-            Petshop.findById(req.params.id, function (err, data) {
-                if (err) {
-                    response = {"success": false, "message": "Error fetching data"};
-                } else {
-                    // we got data from Mongo.
-                    // change it accordingly.
-                    if (req.body.name !== undefined) {
-                        data.name = req.body.name;
-                    }
-
-                    if (req.body.description !== undefined) {
-                        data.description = req.body.description;
-                    }
-
-                    if (req.body.address !== undefined) {
-                        data.address = req.body.address;
-                    }
-
-                    if (req.body.phone !== undefined) {
-                        data.phone = req.body.phone;
-                    }
-
-                    if (req.body.latitude !== undefined) {
-                        data.latitude = req.body.latitude;
-                    }
-
-                    if (req.body.longitude !== undefined) {
-                        data.longitude = req.body.longitude;
-                    }
-
-                    if (req.body.favorite !== undefined) {
-                        data.favorite = req.body.favorite;
-                    }
-                    if (req.body.since !== undefined) {
-                        data.since = req.body.since;
-                    }
-
-                    if (req.body.image_url !== undefined) {
-                        data.image_url = req.body.image_url;
-                    }
-
-                    if (req.body.open !== undefined) {
-                        data.open = req.body.open;
-                    }
-
-                    if (req.body.close !== undefined) {
-                        data.close = req.body.close;
-                    }
-
-                    // save the data
-                    data.save(function (err) {
-                        if (err) {
-                            response = {"success": false, "message": "Error updating data"};
-                        } else {
-                            response = {"success": true, "message": "Data is updated for " + req.params.id, "user": data[0]};
-                        }
-                        res.json(response);
-                    })
-                }
-            })
-        })
     .delete(function (req, res) {
-            var response = {};
-            // find the data
-            Petshop.findById(req.params.id, function (err, data) {
-                if (err) {
-                    response = {"success": false, "message": "Error fetching data"};
-                } else {
-                    // data exists, remove it.
-                    Petshop.remove({_id: req.params.id}, function (err) {
-                        if (err) {
-                            response = {"success": false, "message": "Error deleting data"};
-                        } else {
-                            response = {"success": true, "message": "Data associated with " + req.params.id + "is deleted"};
-                        }
-                        res.json(response);
-                    });
-                }
-            })
+        var response = {};
+        // find the data
+        Petshop.findById(req.params.id, function (err, data) {
+            if (err) {
+                response = {"success": false, "message": "Error fetching data"};
+            } else {
+                // data exists, remove it.
+                Petshop.remove({_id: req.params.id}, function (err) {
+                    if (err) {
+                        response = {"success": false, "message": "Error deleting data"};
+                    } else {
+                        response = {"success": true, "message": "Data associated with " + req.params.id + "is deleted"};
+                    }
+                    res.json(response);
+                });
+            }
+        })
+    });
+
+
+router.route("/favorites")
+    .get(function (req, res) {
+        var response = {};
+        Petshop.find({favorite: true}, function (err, data) {
+            // Mongo command to fetch all data from collection.
+            if (err) {
+                res.send(error);
+            }
+
+            if (data.length == 0) {
+                response = {"success": false};
+            } else {
+                response = {"success": true, "petshops": data};
+            }
+
+            res.json(response);
         });
+    });
 
 router.route("/services/petshop")
     .get(function (req, res) {
@@ -339,7 +371,7 @@ router.route("/services/petshop")
 
             if (data.length == 0) {
                 response = {"success": false};
-            } else  {
+            } else {
                 response = {"success": true, "services": data};
             }
 
@@ -349,10 +381,10 @@ router.route("/services/petshop")
     .post(function (req, res) {
         var service = new Service();
 
-        service.id_petshop    = req.body.id_petshop;
-        service.name          = req.body.name;
+        service.id_petshop = req.body.id_petshop;
+        service.name = req.body.name;
         service.image_service = req.body.image_service;
-        service.value         = req.body.value;
+        service.value = req.body.value;
 
         service.save(function (error) {
             if (error)
@@ -365,7 +397,7 @@ router.route("/services/petshop")
 router.route("/services/petshop/:id_petshop")
     .get(function (req, res) {
         var response = {};
-        Service.find({id_petshop : req.params.id_petshop}, function (err, data) {
+        Service.find({id_petshop: req.params.id_petshop}, function (err, data) {
             // This will run Mongo Query to fetch data based on ID.
             if (err) {
                 res.send(error);
@@ -382,12 +414,12 @@ router.route("/services/petshop/:id_petshop")
     });
 
 router.route("/services/:id")
- .get(function (req, res) {
+    .get(function (req, res) {
         var response = {};
         Service.findById(req.params.id, function (err, data) {
             // This will run Mongo Query to fetch data based on ID.
             if (err) {
-               res.send(error);
+                res.send(error);
             }
 
             if (data.length == 0) {
@@ -400,24 +432,24 @@ router.route("/services/:id")
         });
     })
     .delete(function (req, res) {
-            var response = {};
-            // find the data
-            Service.findById(req.params.id, function (err, data) {
-                if (err) {
-                    response = {"success": false, "message": "Error fetching data"};
-                } else {
-                    // data exists, remove it.
-                    Service.remove({_id: req.params.id}, function (err) {
-                        if (err) {
-                            response = {"success": false, "message": "Error deleting data"};
-                        } else {
-                            response = {"success": true, "message": "Data associated with " + req.params.id + "is deleted"};
-                        }
-                        res.json(response);
-                    });
-                }
-            })
-        });
+        var response = {};
+        // find the data
+        Service.findById(req.params.id, function (err, data) {
+            if (err) {
+                response = {"success": false, "message": "Error fetching data"};
+            } else {
+                // data exists, remove it.
+                Service.remove({_id: req.params.id}, function (err) {
+                    if (err) {
+                        response = {"success": false, "message": "Error deleting data"};
+                    } else {
+                        response = {"success": true, "message": "Data associated with " + req.params.id + "is deleted"};
+                    }
+                    res.json(response);
+                });
+            }
+        })
+    });
 
 
 app.use('/', router);

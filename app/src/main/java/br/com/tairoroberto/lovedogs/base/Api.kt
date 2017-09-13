@@ -1,15 +1,14 @@
 package br.com.tairoroberto.lovedogs.base
 
 import br.com.tairoroberto.lovedogs.login.model.LoginResponse
+import br.com.tairoroberto.lovedogs.petshop.model.PetShop
 import br.com.tairoroberto.lovedogs.petshop.model.PetshopsResponse
+import br.com.tairoroberto.lovedogs.petshop.model.UpdatePetShopResponse
 import br.com.tairoroberto.lovedogs.petshopservice.model.ServicesResponse
 import br.com.tairoroberto.lovedogs.register.model.UserRegisterRequest
 import br.com.tairoroberto.lovedogs.register.model.UserRegisterResponse
 import io.reactivex.Observable
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 
 /**
@@ -25,6 +24,12 @@ interface Api {
 
     @GET("/petshops")
     fun getPetshops(): Observable<PetshopsResponse>
+
+    @PUT("/petshops")
+    fun updatePetshop(@Body petShop: PetShop): Observable<UpdatePetShopResponse>
+
+    @GET("/favorites")
+    fun getFavorites(): Observable<PetshopsResponse>
 
     @GET("/services/petshop")
     fun getServices(): Observable<ServicesResponse>

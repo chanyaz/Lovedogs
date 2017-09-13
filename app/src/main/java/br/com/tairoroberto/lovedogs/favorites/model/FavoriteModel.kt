@@ -11,14 +11,25 @@ import io.reactivex.schedulers.Schedulers
  */
 class FavoriteModel(private val presenter: FavoriteContract.Presenter) : FavoriteContract.Model {
 
-    override fun listarPetshops() {
-        ApiUtils.getApiService()?.getPetshops()?.subscribeOn(Schedulers.io())
+    override fun getFavorites() {
+        ApiUtils.getApiService()?.getFavorites()?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
                     presenter.manipulatePetshopsResponse(it)
                 }, { error ->
                     Log.i("LOG", "${error.message}")
                     presenter.showError(error.message as String)
+                })
+    }
+
+    override fun updatePetshop(petShop: PetShop) {
+        ApiUtils.getApiService()?.updatePetshop(petShop)?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({
+                    presenter.manipulateUpdatePetshopResponse(it)
+                }, { error ->
+                    Log.i("LOG", "${error.message}")
+                    presenter.showError("Falha na comunicação :(")
                 })
     }
 

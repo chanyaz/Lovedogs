@@ -27,13 +27,13 @@
             <ImageView
                 android:id="@+id/imageViewPetShop"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="@dimen/dimen_220dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/animais" />
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="@dimen/dimen_100dp"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="0dp"
                 app:srcCompat="@drawable/gradient_black" />

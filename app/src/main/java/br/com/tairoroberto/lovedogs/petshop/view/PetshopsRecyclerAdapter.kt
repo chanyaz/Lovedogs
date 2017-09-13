@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import br.com.tairoroberto.lovedogs.R
 import br.com.tairoroberto.lovedogs.base.extension.loadImage
+import br.com.tairoroberto.lovedogs.favorites.view.OnClickMenu
 import br.com.tairoroberto.lovedogs.petshop.model.PetShop
 
 
@@ -21,14 +21,15 @@ import br.com.tairoroberto.lovedogs.petshop.model.PetShop
  */
 class PetshopsRecyclerAdapter(val context: Context,
                               private var listPetshops: ArrayList<PetShop>?,
-                              private val onClick: OnClick) : RecyclerView.Adapter<PetshopsRecyclerAdapter.ViewHolder>() {
+                              private val onClick: OnClick,
+                              private val onClickMenu: OnClickMenu) : RecyclerView.Adapter<PetshopsRecyclerAdapter.ViewHolder>() {
 
     private var lastPosition = -1
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val petShop = listPetshops?.get(position)
         if (petShop != null) {
-            holder.bind(context, petShop)
+            holder.bind(context, petShop, onClickMenu, position)
             holder.itemView.setOnClickListener({
                 onClick.onItemClick(petShop)
             })
@@ -59,7 +60,7 @@ class PetshopsRecyclerAdapter(val context: Context,
         private val textViewOpenClose: TextView = view.findViewById(R.id.textViewOpenClose)
         private val imageViewMenu: ImageView = view.findViewById(R.id.imageViewMenu)
 
-        fun bind(context: Context?, petShop: PetShop) {
+        fun bind(context: Context?, petShop: PetShop, onClickMenu: OnClickMenu, position: Int) {
 
             imageView.loadImage(petShop.imageUrl)
             textViewTitle.text = petShop.name
@@ -71,7 +72,7 @@ class PetshopsRecyclerAdapter(val context: Context,
                 popup.setOnMenuItemClickListener { item ->
                     when (item.itemId) {
                         R.id.menu_favorite -> {
-                            Toast.makeText(textViewTitle.context, petShop.name, Toast.LENGTH_SHORT).show();
+                            onClickMenu.onItemMenuClick(position)
                         }
                     }
                     false

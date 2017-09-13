@@ -14,16 +14,16 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_profile_photo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/dimen_100dp"
+            android:layout_height="@dimen/dimen_100dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/dimen_8dp"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
             android:elevation="4dp"
             android:src="@drawable/animais"
-            app:civ_border_color="#175258"
-            app:civ_border_width="4dp"
+            app:civ_border_color="@color/green_175258"
+            app:civ_border_width="@dimen/dimen_4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,14 +31,14 @@
         <ProgressBar
             android:id="@+id/progress"
             style="?android:attr/progressBarStyleLarge"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:layout_width="@dimen/dimen_130dp"
+            android:layout_height="@dimen/dimen_130dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
+            android:layout_marginEnd="@dimen/dimen_8dp"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
             android:indeterminate="true"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/user_profile_photo"
@@ -50,14 +50,14 @@
             android:id="@+id/register_form"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="#2BBC9B"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_16dp"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:background="@color/green_2bbc9b"
             android:elevation="@dimen/dimen_4dp"
             android:visibility="visible"
-            app:cardBackgroundColor="#2BBC9B"
+            app:cardBackgroundColor="@color/green_2bbc9b"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,10 +73,10 @@
                     android:id="@+id/textInputLayout3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:textColorHint="#ADFFF1"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:textColorHint="@color/green_adfff1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -86,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Name"
-                        android:textColor="#F2FEFF" />
+                        android:textColor="@color/green_adfff1" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -94,10 +94,10 @@
                     android:id="@+id/textInputLayout4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:textColorHint="#ADFFF1"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:textColorHint="@color/green_adfff1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
@@ -107,17 +107,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Address"
-                        android:textColor="#F2FEFF" />
+                        android:textColor="@color/green_adfff1" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/textInputLayout5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:textColorHint="#ADFFF1"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:textColorHint="@color/green_adfff1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
@@ -128,17 +128,17 @@
                         android:layout_height="wrap_content"
                         android:hint="Phone"
                         android:inputType="phone"
-                        android:textColor="#F2FEFF" />
+                        android:textColor="@color/green_adfff1" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/textInputLayoutEmail"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="@dimen/dimen_54dp"
                     android:layout_marginEnd="@dimen/dimen_16dp"
                     android:layout_marginStart="@dimen/dimen_16dp"
-                    android:layout_marginTop="8dp"
-                    android:textColorHint="#ADFFF1"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:textColorHint="@color/green_adfff1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -151,7 +151,7 @@
                         android:hint="E-mail"
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
-                        android:textColor="#F2FEFF" />
+                        android:textColor="@color/green_adfff1" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -160,8 +160,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen_16dp"
                     android:layout_marginStart="@dimen/dimen_16dp"
-                    android:layout_marginTop="8dp"
-                    android:textColorHint="#ADFFF1"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:textColorHint="@color/green_adfff1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail">
@@ -174,7 +174,7 @@
                         android:hint="Password"
                         android:inputType="textPassword"
                         android:singleLine="true"
-                        android:textColor="#ADFFF1" />
+                        android:textColor="@color/green_adfff1" />
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
@@ -182,15 +182,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="22dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="@dimen/dimen_8dp"
                     android:layout_marginEnd="@dimen/dimen_16dp"
                     android:layout_marginStart="@dimen/dimen_16dp"
-                    android:layout_marginTop="8dp"
-                    android:background="#175258"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:background="@color/green_175258"
                     android:text="Register"
                     android:textAllCaps="false"
-                    android:textColor="#E6F9FA"
-                    android:textSize="18sp"
+                    android:textColor="@color/green_e6f9fa"
+                    android:textSize="@dimen/dimen_18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"

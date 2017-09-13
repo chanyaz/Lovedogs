@@ -1,20 +1,121 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Love Dogs</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="app_name">Love dogs</string>
+    <string name="title_home">Início</string>
+    <string name="title_dashboard">Início</string>
     <string name="title_notifications">Notificações</string>
-    <string name="title_activity_login">Entrar</string>
+    <string name="title_activity_login">Login</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Senha</string>
-    <string name="action_sign_in">Entrar</string>
-    <string name="action_sign_in_short">Login</string>
-    <string name="error_invalid_email">Este email é inválido</string>
-    <string name="error_invalid_password">Esta senha é muito curta</string>
-    <string name="error_incorrect_password">Senha ou email inválido</string>
-    <string name="error_field_required">Campo requerido</string>
-    <string name="permission_rationale">"Permissão de contatos é requerida para autocompletar a list ade emails"
+    <string name="action_sign_in">Entrat ou registrar</string>
+    <string name="action_sign_in_short">Registrar</string>
+    <string name="error_invalid_email">Este endereço de email é inválido</string>
+    <string name="error_invalid_password">Senha muito curta</string>
+    <string name="error_incorrect_password">senha ou email é inválido</string>
+    <string name="error_field_required">campo requerido</string>
+    <string name="permission_rationale">"Permissão para ler contatos necessário par autopreenchimento "
     </string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="register_activity">Registrar</string>
+
+    <string name="facebook_app_id">1906397619682396</string>
+    <string name="fb_login_protocol_scheme">fb1906397619682396</string>
+    <string name="logout">Sair</string>
+    <string name="pet_shops">Pet Shops</string>
+    <string name="services">Serviços</string>
+    <string name="favorites">Favoritos</string>
+    <string name="title_activity_petshop_detail">Love Dogs</string>
+    <string name="action_settings">Configurações</string>
+    <string name="close">fecha:</string>
+    <string name="open">abre:</string>
+    <string name="title_activity_settings">Configurações</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Geral</string>
+
+    <string name="pref_title_social_recommendations">Habilitar compartilhamento</string>
+    <string name="pref_description_social_recommendations">Compartilha conteúdo com mídias sociais.</string>
+
+    <string name="pref_title_display_name">Nome</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">mensagens para amoigos</string>
+    <string-array name="pref_example_list_titles">
+        <item>Sempre</item>
+        <item>Quando possível</item>
+        <item>Nunca</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Dados &amp; Sincronização</string>
+
+    <string name="pref_title_sync_frequency">Feequencia de sincronização</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutos</item>
+        <item>30 minutos</item>
+        <item>1 hora</item>
+        <item>3 houras</item>
+        <item>6 houras</item>
+        <item>Nunca</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">Config. de Sinc. do sistema</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notificações</string>
+
+    <string name="pref_title_new_message_notifications">nova mensagen de notificação</string>
+
+    <string name="pref_title_ringtone">Som</string>
+    <string name="pref_ringtone_silent">Silêncio</string>
+
+    <string name="pref_title_vibrate">Vibrar</string>
+    <string name="about">Sobre</string>
+    <string name="share">Compartilhar</string>
+    <string name="favorite">Favorito</string>
+    <string name="formated_value_money">R$ %s</string>
+    <string name="remove">Remover</string>
+    <string name="title">Título</string>
+    <string name="subtitle">Sub título</string>
+    <string name="address">Endereço</string>
+    <string name="phone">Telefone</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="name">Nome</string>
+    <string name="remember">Lembrar</string>
+    <string name="login">Entar</string>
+    <string name="register">Registrar</string>
+    <string name="author">Tairo Roberto Miguel De Assunção</string>
+    <string name="version">Versão</string>
+
 </resources>

@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import br.com.tairoroberto.lovedogs.R
+import br.com.tairoroberto.lovedogs.favorites.view.OnClickMenu
 import br.com.tairoroberto.lovedogs.petshop.contract.PetshopContract
 import br.com.tairoroberto.lovedogs.petshop.model.PetShop
 import br.com.tairoroberto.lovedogs.petshop.presenter.PetshopPresenter
@@ -19,7 +21,7 @@ import org.jetbrains.anko.startActivity
 /**
  * A simple [Fragment] subclass.
  */
-class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
+class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick, OnClickMenu {
 
     private val presenter: PetshopContract.Presenter = PetshopPresenter()
     var listPetshops: ArrayList<PetShop>? = ArrayList()
@@ -50,7 +52,7 @@ class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
 
         presenter.loadPetshops()
 
-        adapter = PetshopsRecyclerAdapter(activity, listPetshops, this)
+        adapter = PetshopsRecyclerAdapter(activity, listPetshops, this, this)
         recyclerViewPets?.adapter = adapter
 
         swipeRefreshLayout?.setOnRefreshListener({
@@ -67,5 +69,13 @@ class ListPetshopsFragment : Fragment(), PetshopContract.View, OnClick {
 
     override fun onItemClick(petShop: PetShop) {
         activity.startActivity<PetshopDetailActivity>("petShop" to petShop)
+    }
+
+    override fun onItemMenuClick(position: Int) {
+        presenter.updatePetshop(listPetshops?.get(position))
+    }
+
+    override fun updateList(petShop: PetShop) {
+        Toast.makeText(activity, "${petShop.name} adicionado aos favoritos :)", Toast.LENGTH_SHORT).show()
     }
 }

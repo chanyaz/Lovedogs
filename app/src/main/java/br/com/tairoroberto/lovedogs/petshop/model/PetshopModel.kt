@@ -22,6 +22,17 @@ class PetshopModel(private val presenter: PetshopContract.Presenter) : PetshopCo
                 })
     }
 
+    override fun updatePetshop(petShop: PetShop) {
+        ApiUtils.getApiService()?.updatePetshop(petShop)?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({
+                    presenter.manipulateUpdatePetshopResponse(it)
+                }, { error ->
+                    Log.i("LOG", "${error.message}")
+                    presenter.showError("Falha na comunicação :(")
+                })
+    }
+
     fun getPetshop() {
 
     }

@@ -31,6 +31,11 @@ import android.content.pm.PackageManager
 import android.provider.MediaStore.Images
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.util.Log
+import br.com.tairoroberto.lovedogs.base.ApiUtils
+import br.com.tairoroberto.lovedogs.base.extension.showSnackBarError
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class PetshopDetailActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -67,9 +72,29 @@ class PetshopDetailActivity : AppCompatActivity(), OnMapReadyCallback {
             textViewPhone.text = PhoneNumberUtils.formatNumber(petShop?.phone, Locale.getDefault().country)
         }
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        textViewPhone.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:${petShop?.phone}")
+            startActivity(intent)
+        }
+
+        imageViewPhone.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:${petShop?.phone}")
+            startActivity(intent)
+        }
+
+        fab.setOnClickListener {
+            val favorite = petShop?.favorite as Boolean
+
+            petShop?.favorite = !favorite
+            updatePetshop(petShop as PetShop)
+        }
+
+        if(petShop?.favorite == true) {
+            fab.setImageResource(R.drawable.ic_favorite_black_24dp)
+        }else {
+            fab.setImageResource(R.drawable.ic_favorite_border_black_24dp)
         }
     }
 
@@ -128,6 +153,25 @@ class PetshopDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         this.googleMap.addMarker(MarkerOptions().position(locale).title(petShop?.name))
         this.googleMap.setMinZoomPreference(15.0f)
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(locale))
+    }
+
+    fun updatePetshop(petShop: PetShop) {
+        ApiUtils.getApiService()?.updatePetshop(petShop)?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({
+                    if( it.success && petShop.favorite) {
+                        fab.setImageResource(R.drawable.ic_favorite_black_24dp)
+                        Toast.makeText(this, "Adicionado aos favoritos :)", Toast.LENGTH_SHORT).show()
+                    }else {
+                        fab.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                        Toast.makeText(this, "Removido dos favoritos :)", Toast.LENGTH_SHORT).show()
+                    }
+
+                }, { error ->
+                    Log.i("LOG", "${error.message}")
+                    fab.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                    showSnackBarError(textViewClose, "Falha na comunicação :(")
+                })
     }
 
     companion object {
