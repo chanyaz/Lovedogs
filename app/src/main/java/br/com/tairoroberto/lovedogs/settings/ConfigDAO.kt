@@ -12,40 +12,57 @@ import br.com.tairoroberto.lovedogs.base.database.DBCore
 class ConfigDAO(context: Context) {
 
     private val db: SQLiteDatabase
+    private val columns = arrayOf("_id", "user", "password", "notification", "sound_notification", "vibrate", "share")
+    private val table = "config"
 
     init {
         val dbCore = DBCore.getInstance(context.applicationContext)
         db = dbCore.writableDatabase
     }
 
-    fun insert(configuracoes: Configuracoes) {
+    fun insert(configuracoes: Configuracoes?) {
         val values = ContentValues()
+        values.put("user", configuracoes?.user)
+        values.put("password", configuracoes?.password)
+        values.put("notification", if(configuracoes?.notification == true) 1 else 0)
+        values.put("sound_notification", configuracoes?.sound_notification)
+        values.put("vibrate", if(configuracoes?.vibrate == true) 1 else 0)
+        values.put("share", if(configuracoes?.share == true) 1 else 0)
         db.insert("config", null, values)
     }
 
     fun update(configuracoes: Configuracoes?) {
         val values = ContentValues()
-
+        values.put("user", configuracoes?.user)
+        values.put("password", configuracoes?.password)
+        values.put("notification", if(configuracoes?.notification == true) 1 else 0)
+        values.put("sound_notification", configuracoes?.sound_notification)
+        values.put("vibrate", if(configuracoes?.vibrate == true) 1 else 0)
+        values.put("share", if(configuracoes?.share == true) 1 else 0)
         db.update("config", values, "_id = ?", arrayOf("" + configuracoes?.id))
     }
 
     fun getById(id: Long): Configuracoes? {
         val configuracoes = Configuracoes()
-
-        val columns = arrayOf("_id", "usuario", "senha", "latitude", "longitude", "distancia", "notificacao_entrada", "notificacao_almoco", "notificacao_saida", "chave_sessao", "matricula_usuario", "cookie_sessao", "cookie_usuario_sessao", "vibrar_habilitado", "ringtone_habilitado", "ringtone")
         val where = "_id = ?"
 
         try {
-            db.query("config", columns, where, arrayOf("" + id), null, null, null).use { cursor ->
-                if (cursor.count > 0) {
+            db.query(table, columns, where, arrayOf("" + id), null, null, null).use { cursor ->
+                return if (cursor.count > 0) {
                     cursor.moveToFirst()
 
                     configuracoes.id = cursor.getLong(0)
+                    configuracoes.user = cursor.getString(1)
+                    configuracoes.password = cursor.getString(2)
+                    configuracoes.notification = cursor.getInt(3) == 1
+                    configuracoes.sound_notification = cursor.getString(4)
+                    configuracoes.vibrate = cursor.getInt(5) == 1
+                    configuracoes.share = cursor.getInt(6) == 1
 
-                    return configuracoes
+                    configuracoes
                 } else {
 
-                    return configuracoes
+                    configuracoes
                 }
             }
         } catch (e: Exception) {

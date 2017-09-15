@@ -13,13 +13,14 @@ import android.view.animation.AnimationSet
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import br.com.tairoroberto.lovedogs.R
+import br.com.tairoroberto.lovedogs.base.extension.getConfig
+import br.com.tairoroberto.lovedogs.settings.ConfigDAO
+import br.com.tairoroberto.lovedogs.settings.Configuracoes
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.*
 
 class SplashActivity : AppCompatActivity() {
-
-    val animation = AnimationSet(true)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -31,12 +32,9 @@ class SplashActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        getConfig()
 
         FirebaseMessaging.getInstance().subscribeToTopic("android")
-
-        val animFadein = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
-        animation.interpolator = AccelerateInterpolator()
-        animation.addAnimation(animFadein)
 
         Timer().schedule(object : TimerTask() {
             override fun run() {
@@ -107,10 +105,11 @@ class SplashActivity : AppCompatActivity() {
                 img7.visibility = View.GONE
                 img8.visibility = View.GONE
                 img9.visibility = View.GONE
-                progressBar.visibility = View.VISIBLE
+
+                val slide_up = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_up)
                 imageSplash.visibility = View.VISIBLE
                 //textView.visibility = View.VISIBLE
-                imageSplash.startAnimation(animation)
+                imageSplash.startAnimation(slide_up)
 
                 Timer().schedule(object : TimerTask() {
                     override fun run() {

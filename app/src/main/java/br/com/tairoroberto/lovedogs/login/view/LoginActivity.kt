@@ -70,8 +70,9 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, FacebookCallback<
         mFirebaseAnalytics?.logEvent("login", Bundle())
         register.setOnClickListener { startActivity<RegisterActivity>() }
 
-        email.setText(presenter.getStringPreference("email"))
-        password.setText(presenter.getStringPreference("password"))
+        val config = presenter.getConfig()
+        email.setText(config?.user)
+        password.setText(config?.password)
 
         FacebookSdk.sdkInitialize(applicationContext)
         callbackManager = CallbackManager.Factory.create()

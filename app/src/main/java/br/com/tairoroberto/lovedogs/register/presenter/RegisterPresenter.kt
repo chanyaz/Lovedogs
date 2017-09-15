@@ -4,11 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.text.TextUtils
 import br.com.tairoroberto.lovedogs.R
+import br.com.tairoroberto.lovedogs.base.extension.getConfig
 import br.com.tairoroberto.lovedogs.home.HomeActivity
 import br.com.tairoroberto.lovedogs.register.contract.RegisterContract
 import br.com.tairoroberto.lovedogs.register.model.RegisterModel
 import br.com.tairoroberto.lovedogs.register.model.UserRegisterRequest
 import br.com.tairoroberto.lovedogs.register.model.UserRegisterResponse
+import br.com.tairoroberto.lovedogs.settings.Configuracoes
 
 /**
  * Created by tairo on 8/9/17.
@@ -72,6 +74,10 @@ class RegisterPresenter : RegisterContract.Presenter {
         }else{
             view?.showErrorRegister("Falha ao registrar usuario, ${loginResponse.message} :(")
         }
+    }
+
+    override fun getConfig(): Configuracoes? {
+        return view?.getActivity()?.getConfig()
     }
 
     override fun showErrorRegister(str: String) {

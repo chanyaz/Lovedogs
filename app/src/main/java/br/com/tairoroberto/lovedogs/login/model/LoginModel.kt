@@ -5,7 +5,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import br.com.tairoroberto.lovedogs.base.ApiUtils
+import br.com.tairoroberto.lovedogs.base.extension.getConfig
+import br.com.tairoroberto.lovedogs.base.extension.getConfigDAO
 import br.com.tairoroberto.lovedogs.login.contract.LoginContract
+import br.com.tairoroberto.lovedogs.settings.Configuracoes
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -26,12 +29,13 @@ class LoginModel(val presenter: LoginContract.Presenter) : LoginContract.Model {
     }
 
     override fun saveUserLogin(emailStr: String, passwordStr: String, activity: Activity?) {
-        val preference: SharedPreferences? = activity?.getPreferences(Context.MODE_PRIVATE)
-        preference?.edit()?.putString("email", emailStr)?.apply()
-        preference?.edit()?.putString("password", passwordStr)?.apply()
+        val config = presenter.getActivity()?.getConfig()
+        config?.user = emailStr
+        config?.password = passwordStr
+        presenter.getActivity()?.getConfigDAO()?.update(config)
     }
 
-    override fun getStringPreference(activity: Activity?, key: String): String? {
-        return activity?.getPreferences(Context.MODE_PRIVATE)?.getString(key, "")
+    override fun getConfig(): Configuracoes? {
+        return presenter.getActivity()?.getConfig()
     }
 }

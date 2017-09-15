@@ -1,10 +1,12 @@
 package br.com.tairoroberto.lovedogs.home
 
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
+import android.transition.ChangeBounds
 import android.view.Menu
 import android.view.MenuItem
 import br.com.tairoroberto.lovedogs.R

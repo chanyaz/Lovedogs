@@ -16,9 +16,12 @@ class DBCore(context: Context): SQLiteOpenHelper(context, NOME_DB, null, VERSAO_
 
         db.execSQL("create table config("
                 + "_id integer primary key autoincrement,"
+                + "user text,"
+                + "password text,"
                 + "notification integer default 0,"
                 + "sound_notification text,"
-                + "vibrate integer default 0);")
+                + "vibrate integer default 0,"
+                + "share integer default 0);")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

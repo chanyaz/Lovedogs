@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
+import br.com.tairoroberto.lovedogs.settings.ConfigDAO
+import br.com.tairoroberto.lovedogs.settings.Configuracoes
 
 
 /**
@@ -48,4 +50,18 @@ fun Activity.showSnackBarError(view: View, msg: String) {
 fun Activity.hideKeyboard() {
     val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+}
+
+fun Activity.getConfig(): Configuracoes? {
+    val configDao = getConfigDAO()
+    var config = configDao.getById(1)
+    if( config?.id?.toInt() == 0) {
+        configDao.insert(Configuracoes())
+        config = configDao.getById(1)
+    }
+    return config
+}
+
+fun Activity.getConfigDAO(): ConfigDAO {
+    return ConfigDAO(applicationContext)
 }

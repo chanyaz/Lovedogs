@@ -1,5 +1,6 @@
 package br.com.tairoroberto.lovedogs.login.presenter
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.widget.AppCompatAutoCompleteTextView
 import android.text.TextUtils
@@ -12,6 +13,7 @@ import br.com.tairoroberto.lovedogs.home.HomeActivity
 import br.com.tairoroberto.lovedogs.login.contract.LoginContract
 import br.com.tairoroberto.lovedogs.login.model.LoginModel
 import br.com.tairoroberto.lovedogs.login.model.LoginResponse
+import br.com.tairoroberto.lovedogs.settings.Configuracoes
 
 /**
  * Created by tairo on 7/30/17.
@@ -86,8 +88,8 @@ class LoginPresenter : LoginContract.Presenter {
         }
     }
 
-    override fun getStringPreference(key: String): String? {
-        return model?.getStringPreference(view?.getActivity(), key)
+    override fun getConfig(): Configuracoes? {
+        return model?.getConfig()
     }
 
     override fun showSnackBarError(s: String) {
@@ -96,5 +98,9 @@ class LoginPresenter : LoginContract.Presenter {
 
     override fun showProgress(show: Boolean) {
         view?.showProgress(show)
+    }
+
+    override fun getActivity(): Activity? {
+        return view?.getActivity()
     }
 }

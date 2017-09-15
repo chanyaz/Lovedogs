@@ -29,7 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_220dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/animais" />
+                android:src="@drawable/animais"
+                android:transitionName="animais"/>
 
             <ImageView
                 android:layout_width="match_parent"

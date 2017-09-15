@@ -4,6 +4,7 @@ import android.app.Activity
 import br.com.tairoroberto.lovedogs.base.BaseMVP
 import br.com.tairoroberto.lovedogs.register.model.UserRegisterRequest
 import br.com.tairoroberto.lovedogs.register.model.UserRegisterResponse
+import br.com.tairoroberto.lovedogs.settings.Configuracoes
 
 /**
  * Created by tairo on 8/9/17.
@@ -23,11 +24,12 @@ class RegisterContract {
         fun manipulateRegisterResponse(loginResponse: UserRegisterResponse)
         fun showErrorRegister(str: String)
         fun getActivity(): Activity
+        fun getConfig(): Configuracoes?
     }
 
     interface Model {
         fun registerUser(userRegisterrequest: UserRegisterRequest)
-        fun saveUserLogin(emailStr: String?, passwordStr: String?, activity: Activity?)
-        fun getStringPreference(activity: Activity?, key: String): String?
+        fun saveUserLogin(emailStr: String?, passwordStr: String?)
+        fun getConfig(): Configuracoes?
     }
 }

@@ -31,9 +31,12 @@ import android.content.pm.PackageManager
 import android.provider.MediaStore.Images
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.transition.ChangeBounds
 import android.util.Log
 import br.com.tairoroberto.lovedogs.base.ApiUtils
+import br.com.tairoroberto.lovedogs.base.extension.getConfig
 import br.com.tairoroberto.lovedogs.base.extension.showSnackBarError
+import br.com.tairoroberto.lovedogs.settings.Configuracoes
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -43,11 +46,21 @@ class PetshopDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     private var petShop: PetShop? = null
     private lateinit var googleMap: GoogleMap
     private var shareActionProvider: ShareActionProvider? = null
+    var config: Configuracoes? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val changeBounds = ChangeBounds()
+            changeBounds.duration = 2000
+            window.sharedElementExitTransition = changeBounds
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_petshop_detail)
         setSupportActionBar(toolbar)
+
+        config = getConfig()
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.mapDetail) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -99,17 +112,19 @@ class PetshopDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_petshop_detail, menu)
 
-        val shareItem = menu.findItem(R.id.menu_share)
+        if( config?.share == true) {
+            menuInflater.inflate(R.menu.menu_petshop_detail, menu)
+            val shareItem = menu.findItem(R.id.menu_share)
 
-        shareActionProvider = MenuItemCompat.getActionProvider(shareItem) as ShareActionProvider
+            shareActionProvider = MenuItemCompat.getActionProvider(shareItem) as ShareActionProvider
 
-        val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE)
-        } else {
-            setShareIntent()
+            val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE)
+            } else {
+                setShareIntent()
+            }
         }
 
         return super.onCreateOptionsMenu(menu)

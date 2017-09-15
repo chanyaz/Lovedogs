@@ -6,6 +6,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import br.com.tairoroberto.lovedogs.base.BaseMVP
 import br.com.tairoroberto.lovedogs.login.model.LoginResponse
+import br.com.tairoroberto.lovedogs.settings.Configuracoes
 
 /**
  * Created by tairo on 7/22/17.
@@ -26,12 +27,13 @@ class LoginContract {
         fun manipulateloginResponse(loginResponse: LoginResponse)
         fun showSnackBarError(s: String)
         fun showProgress(show: Boolean)
-        fun getStringPreference(key: String): String?
+        fun getConfig(): Configuracoes?
+        fun getActivity(): Activity?
     }
 
     interface Model {
         fun getLogin(email: String, password: String)
         fun saveUserLogin(emailStr: String, passwordStr: String, activity: Activity?)
-        fun getStringPreference(activity: Activity?, key: String): String?
+        fun getConfig(): Configuracoes?
     }
 }

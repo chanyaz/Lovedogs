@@ -1,6 +1,7 @@
 package br.com.tairoroberto.lovedogs.settings
 
 import android.annotation.TargetApi
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -8,12 +9,7 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.preference.ListPreference
-import android.preference.Preference
-import android.preference.PreferenceActivity
-import android.preference.PreferenceFragment
-import android.preference.PreferenceManager
-import android.preference.RingtonePreference
+import android.preference.*
 import android.text.TextUtils
 import android.view.MenuItem
 import android.support.v4.app.NavUtils
@@ -94,6 +90,9 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
+            val config = ConfigDAO(activity.applicationContext).getById(1)
+            findPreference("social_switch").setDefaultValue(config?.share)
+            SettingsActivity.bindPreferenceSummaryToValueBoolen(findPreference("social_switch"))
         }
 
         override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -121,7 +120,15 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
+
+            val config = ConfigDAO(activity.applicationContext).getById(1)
+            findPreference("notifications_new_message").setDefaultValue(config?.notification)
+            findPreference("notifications_new_message_ringtone").setDefaultValue(config?.sound_notification)
+            findPreference("notifications_new_message_vibrate").setDefaultValue(config?.vibrate)
+
+            bindPreferenceSummaryToValueBoolen(findPreference("notifications_new_message"))
             bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"))
+            bindPreferenceSummaryToValueBoolen(findPreference("notifications_new_message_vibrate"))
         }
 
         override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -136,31 +143,42 @@ class SettingsActivity : AppCompatPreferenceActivity() {
 
     companion object {
 
-        /**
-         * A preference value change listener that updates the preference's summary
-         * to reflect its new value.
-         */
+        private val sBindPreferenceSummaryToValueListenerClick = Preference.OnPreferenceClickListener {
+
+            val config = ConfigDAO(it.context.applicationContext).getById(1)
+
+            if (it is SwitchPreference) {
+                // For list preferences, look up the correct display value in
+                // the preference's 'entries' list.
+                if(it.title == it.context.getString(R.string.pref_title_social_recommendations)) {
+                    config?.share = it.isChecked
+                }
+
+                if(it.title == it.context.getString(R.string.pref_title_new_message_notifications)) {
+                    config?.notification = it.isChecked
+                }
+
+                if(it.title == it.context.getString(R.string.pref_title_vibrate)) {
+                    config?.vibrate = it.isChecked
+                }
+            }
+
+            ConfigDAO(it.context.applicationContext).update(config)
+            true
+        }
+
         private val sBindPreferenceSummaryToValueListener = Preference.OnPreferenceChangeListener { preference, value ->
             val stringValue = value.toString()
 
-            if (preference is ListPreference) {
-                // For list preferences, look up the correct display value in
-                // the preference's 'entries' list.
-                val listPreference = preference
-                val index = listPreference.findIndexOfValue(stringValue)
+            val config = ConfigDAO(preference.context.applicationContext).getById(1)
 
-                // Set the summary to reflect the new value.
-                preference.setSummary(
-                        if (index >= 0)
-                            listPreference.entries[index]
-                        else
-                            null)
-
-            } else if (preference is RingtonePreference) {
+          if (preference is RingtonePreference) {
                 // For ringtone preferences, look up the correct display value
                 // using RingtoneManager.
                 if (TextUtils.isEmpty(stringValue)) {
                     // Empty values correspond to 'silent' (no ringtone).
+                    config?.notification = false
+                    config?.sound_notification = ""
                     preference.setSummary(R.string.pref_ringtone_silent)
 
                 } else {
@@ -169,11 +187,15 @@ class SettingsActivity : AppCompatPreferenceActivity() {
 
                     if (ringtone == null) {
                         // Clear the summary if there was a lookup error.
+                        config?.notification = false
+                        config?.sound_notification = ""
                         preference.setSummary(null)
                     } else {
                         // Set the summary to reflect the new ringtone display
                         // name.
                         val name = ringtone.getTitle(preference.getContext())
+                        config?.notification = true
+                        config?.sound_notification = name
                         preference.setSummary(name)
                     }
                 }
@@ -183,6 +205,8 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                 // simple string representation.
                 preference.summary = stringValue
             }
+
+            ConfigDAO(preference.context.applicationContext).update(config)
             true
         }
 
@@ -213,6 +237,18 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                     PreferenceManager
                             .getDefaultSharedPreferences(preference.context)
                             .getString(preference.key, ""))
+        }
+
+        private fun bindPreferenceSummaryToValueBoolen(preference: Preference) {
+            // Set the listener to watch for value changes.
+            preference.onPreferenceClickListener = sBindPreferenceSummaryToValueListenerClick
+
+            // Trigger the listener immediately with the preference's
+            // current value.
+            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+                    PreferenceManager
+                            .getDefaultSharedPreferences(preference.context)
+                            .getBoolean(preference.key, false))
         }
     }
 }

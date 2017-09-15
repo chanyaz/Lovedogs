@@ -5,7 +5,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import br.com.tairoroberto.lovedogs.base.ApiUtils
+import br.com.tairoroberto.lovedogs.base.extension.getConfig
+import br.com.tairoroberto.lovedogs.base.extension.getConfigDAO
 import br.com.tairoroberto.lovedogs.register.contract.RegisterContract
+import br.com.tairoroberto.lovedogs.settings.Configuracoes
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -20,20 +23,21 @@ class RegisterModel(var presenter: RegisterContract.Presenter) : RegisterContrac
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
                     presenter.manipulateRegisterResponse(it)
-                    saveUserLogin(userRegisterrequest.email, userRegisterrequest.password, presenter.getActivity())
+                    saveUserLogin(userRegisterrequest.email, userRegisterrequest.password)
                 }, { error ->
                     Log.i("LOG", "${error.message}")
                     presenter.showErrorRegister("Falha ao conectar ao servidor :(")
                 })
     }
 
-    override fun saveUserLogin(emailStr: String?, passwordStr: String?, activity: Activity?) {
-        val preference: SharedPreferences? = activity?.getPreferences(Context.MODE_PRIVATE)
-        preference?.edit()?.putString("email", emailStr)?.apply()
-        preference?.edit()?.putString("password", passwordStr)?.apply()
+    override fun saveUserLogin(emailStr: String?, passwordStr: String?) {
+        val config = presenter.getActivity().getConfig()
+        config?.user = emailStr.toString()
+        config?.password = passwordStr.toString()
+        presenter.getActivity().getConfigDAO().update(config)
     }
 
-    override fun getStringPreference(activity: Activity?, key: String): String? {
-        return activity?.getPreferences(Context.MODE_PRIVATE)?.getString(key, "")
+    override fun getConfig(): Configuracoes? {
+        return presenter.getActivity().getConfig()
     }
 }
